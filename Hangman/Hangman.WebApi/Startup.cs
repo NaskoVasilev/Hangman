@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Hangman.Common;
+using Hangman.Data;
+using Hangman.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +20,9 @@ namespace Hangman.WebApi
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddSingleton<IWordService, WordService>();
+			services.AddSingleton<IWordRepository, InMemoryWordRepository>
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
