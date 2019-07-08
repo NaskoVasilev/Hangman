@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Hangman.Services
+﻿namespace Hangman.Services
 {
-	class IWordService
+	public interface IWordService
 	{
+		string GetRandomWord(); 
 	}
 }

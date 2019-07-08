@@ -1,17 +1,19 @@
 ﻿using Hangman.Common;
-using System;
 
 namespace Hangman.Services
 {
 	public class WordService : IWordService
 	{
-		public WordService(IWordRepository)
-		{
+		private readonly IWordRepository wordRepository;
 
+		public WordService(IWordRepository wordRepository)
+		{
+			this.wordRepository = wordRepository;
 		}
 
 		public string GetRandomWord()
 		{
+			return wordRepository.GetRandomWord();
 		}
 	}
 }
