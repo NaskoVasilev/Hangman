@@ -1,6 +1,7 @@
 ﻿using Hangman.Common;
 using Hangman.Data;
 using Hangman.Services;
+using Hangman.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace Hangman.WebApi
 				app.UseHsts();
 			}
 
+			app.UseDataSeeders();
 			app.UseHttpsRedirection();
 			app.UseMvc();
 		}
