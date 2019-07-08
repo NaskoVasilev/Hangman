@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Hangman.Common
 {
-	class GlobalConstants
+	public class GlobalConstants
 	{
 	}
 }
