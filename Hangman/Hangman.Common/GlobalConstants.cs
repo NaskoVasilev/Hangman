@@ -6,5 +6,6 @@ namespace Hangman.Common
 {
 	public class GlobalConstants
 	{
+		public const string ApiBaseUrl = "";
 	}
 }
