@@ -1,5 +1,7 @@
 ﻿using Hangman.Models;
 using Hangman.Models.Enums;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +10,7 @@ namespace Hangman.Data.Seeding
 {
 	public class WordsSeeder : ISeeder
 	{
-		public async Task Seed(ApplicationDbContext context)
+		public async Task Seed(IServiceProvider serviceProvider)
 		{
 			Dictionary<WordDifficulty, List<string>> words = new Dictionary<WordDifficulty, List<string>>()
 			{
@@ -18,7 +20,8 @@ namespace Hangman.Data.Seeding
 				[WordDifficulty.Expert] = new List<string>() { "development", "technology" }
 			};
 
-			if(!context.Words.Any())
+			var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+			if (!context.Words.Any())
 			{
 				foreach (var kvp in words)
 				{

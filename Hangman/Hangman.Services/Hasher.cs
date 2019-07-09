@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Hangman.Common;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Hangman.Services

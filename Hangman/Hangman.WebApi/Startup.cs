@@ -1,4 +1,5 @@
-﻿using Hangman.Data;
+﻿using Hangman.Common;
+using Hangman.Data;
 using Hangman.Mappings;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
@@ -37,6 +38,9 @@ namespace Hangman.WebApi
 
 			var authenticationSection = Configuration.GetSection("Authentication");
 			services.Configure<AuthenticationSettings>(authenticationSection);
+
+			var adminDataSection = Configuration.GetSection("AdminData");
+			services.Configure<AdminData>(adminDataSection);
 
 			services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -1,5 +1,8 @@
 ﻿using Hangman.Common;
 using Hangman.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,8 +10,12 @@ namespace Hangman.Data.Seeding
 {
 	public class AdminUserSeeder : ISeeder
 	{
-		public async Task Seed(ApplicationDbContext context)
+		public async Task Seed(IServiceProvider serviceProvider)
 		{
+			var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+			var hasher = serviceProvider.GetRequiredService<IHasher>();
+			var adminData = serviceProvider.GetRequiredService<IOptions<AdminData>>().Value;
+
 			string username = "admin";
 			if (!context.Users.Any(u => u.Username == username))
 			{
@@ -17,9 +24,9 @@ namespace Hangman.Data.Seeding
 				{
 					ApplicationUser admin = new ApplicationUser()
 					{
-						Username = username,
-						Email = "adimn@admin.com",
-						Password = "123456",
+						Username = adminData.Username,
+						Email = adminData.Email,
+						Password = hasher.Hash(adminData.Password),
 					};
 
 					await context.AddAsync(admin);

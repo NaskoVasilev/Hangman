@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 
 namespace Hangman.Data.Seeding
 {
 	public interface ISeeder
 	{
-		Task Seed(ApplicationDbContext context);
+		Task Seed(IServiceProvider serviceProvider);
 	}
 }

@@ -19,11 +19,9 @@ namespace Hangman.WebApi.Extensions
 
 			using(var scope = applicationBuilder.ApplicationServices.CreateScope())
 			{
-				ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
 				foreach (var seeder in seeders)
 				{
-					seeder.Seed(context).GetAwaiter().GetResult();
+					seeder.Seed(scope.ServiceProvider).GetAwaiter().GetResult();
 				}
 			}
 		}

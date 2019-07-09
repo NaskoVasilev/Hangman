@@ -33,6 +33,7 @@ namespace Hangman.WebApi.Controllers
 			return Ok();
 		}
 
+		[HttpPost("[action]")]
 		public async Task<ActionResult<string>> Login(UserLoginInputModel model, [FromServices]IOptions<AuthenticationSettings> settings)
 		{
 			ApplicationUser user = await userService.GetUserByUserNameAndPassword(model.Username, model.Password);

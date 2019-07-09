@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Hangman.Common;
 using Hangman.Data;
 using Hangman.Mappings;
 using Hangman.Models;

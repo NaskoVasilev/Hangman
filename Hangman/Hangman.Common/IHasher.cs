@@ -1,4 +1,4 @@
-﻿namespace Hangman.Services
+﻿namespace Hangman.Common
 {
 	public interface IHasher
 	{
