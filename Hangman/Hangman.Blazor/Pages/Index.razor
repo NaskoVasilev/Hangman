@@ -1,7 +1,29 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h1>Hangman game</h1>
+<div class="d-flex justify-content-center">
+	<button class="btn btn-dark" onclick="@GetRandomWord">Start</button>
+</div>
+<div>
+	<input type="text" name="letter" bind="Letter" />
+	<button type="submit" onclick="">Check</button>
+</div>
+<div>
+	@GameWord
+</div>
 
-Welcome to your new app.
+@functions{
+	public string CurrentWord { get; set; }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+	public string GameWord { get; set; }
+
+	public string Letter { get; set; }
+
+	private async Task GetRandomWord()
+	{
+		Console.WriteLine('here');
+		string word = await this.ApiClient.GetRandomWord();
+		Game.InitializeNewWord(word);
+	}
+}
+
