@@ -12,7 +12,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Hangman.Data\Hangman.Data.csproj" />
+    <ProjectReference Include="..\Hangman.Mappings\Hangman.Mappings.csproj" />
     <ProjectReference Include="..\Hangman.Services\Hangman.Services.csproj" />
+    <ProjectReference Include="..\Hangman.Shared\Hangman.Shared.csproj" />
   </ItemGroup>
 
 </Project>
