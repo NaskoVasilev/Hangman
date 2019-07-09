@@ -1,4 +1,4 @@
-﻿using Hangman.Common;
+﻿using Hangman.Data;
 using Hangman.Data.Seeding;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,14 +12,19 @@ namespace Hangman.WebApi.Extensions
 		{
 			List<ISeeder> seeders = new List<ISeeder>()
 			{
+				new RolesSeeder(),
+				new AdminUserSeeder(),
 				new WordsSeeder()
 			};
 
-			IWordRepository wordRepository = applicationBuilder.ApplicationServices.GetRequiredService<IWordRepository>();
-
-			foreach (var seeder in seeders)
+			using(var scope = applicationBuilder.ApplicationServices.CreateScope())
 			{
-				seeder.Seed(wordRepository);
+				ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+				foreach (var seeder in seeders)
+				{
+					seeder.Seed(context).GetAwaiter().GetResult();
+				}
 			}
 		}
 	}

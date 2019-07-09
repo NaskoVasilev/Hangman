@@ -11,7 +11,7 @@ namespace Hangman.Data
 
 		public DbSet<ApplicationUser> Users { get; set; }
 
-		public DbSet<ApplicationRole> Role { get; set; }
+		public DbSet<ApplicationRole> Roles { get; set; }
 
 		public DbSet<ApplicationUserRole> UserRoles { get; set; }
 
