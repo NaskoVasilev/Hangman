@@ -5,22 +5,23 @@
 	<button class="btn btn-dark" onclick="@GetRandomWord">Start</button>
 </div>
 <div>
-	<input type="text" name="letter" bind="Letter" />
-	<button type="submit" onclick="">Check</button>
+	<input type="text" bind="@letter"/>
+	<button type="submit" onclick="@(() => Game.AddMatchingLetters("a"))">Check</button>
 </div>
 <div>
 	@Game.PlayingWord
 </div>
 
 @functions{
-	public string Letter { get; set; }
+	private string letter { get; set; }
 
 	private async Task GetRandomWord()
 	{
 		Console.WriteLine("here");
-		string word = "atanas";//await this.ApiClient.GetRandomWord();
+		string word = "atanas"; //await this.ApiClient.GetRandomWord();
 		Console.WriteLine(word);
 		Game.InitializeNewWord(word);
+		Console.WriteLine(letter);
 	}
 }
 
