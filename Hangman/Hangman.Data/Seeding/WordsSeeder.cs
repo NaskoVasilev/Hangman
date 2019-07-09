@@ -1,6 +1,7 @@
 ﻿using Hangman.Models;
 using Hangman.Models.Enums;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hangman.Data.Seeding
@@ -17,15 +18,18 @@ namespace Hangman.Data.Seeding
 				[WordDifficulty.Expert] = new List<string>() { "development", "technology" }
 			};
 
-			foreach (var kvp in words)
+			if(!context.Words.Any())
 			{
-				foreach (var word in kvp.Value)
+				foreach (var kvp in words)
 				{
-					await context.AddAsync(new Word { Content = word, WordDifficulty = kvp.Key });
+					foreach (var word in kvp.Value)
+					{
+						await context.AddAsync(new Word { Content = word, WordDifficulty = kvp.Key });
+					}
 				}
-			}
 
-			await context.SaveChangesAsync();
+				await context.SaveChangesAsync();
+			}
 		}
 	}
 }
