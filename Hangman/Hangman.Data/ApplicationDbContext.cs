@@ -23,6 +23,16 @@ namespace Hangman.Data
 			modelBuilder.Entity<ApplicationUserRole>()
 				.HasKey(ur => new { ur.UserId, ur.RoleId });
 
+			modelBuilder.Entity<ApplicationUser>(builder =>
+			{
+				builder.HasIndex(u => u.Username).IsUnique(true);
+				builder.HasIndex(u => u.Email).IsUnique(true);
+			});
+
+			modelBuilder.Entity<ApplicationRole>().HasIndex(r => r.Name).IsUnique(true);
+
+			modelBuilder.Entity<Word>().HasIndex(r => r.Content).IsUnique(true);
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}
