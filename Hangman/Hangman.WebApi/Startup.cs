@@ -64,6 +64,8 @@ namespace Hangman.WebApi
 				options.AllowAnyHeader();
 				options.WithOrigins("http://localhost:54685");
 			});
+			//Enable application custom tiken based authentication
+			app.UseTokenBasedAuthentication();
 			app.UseMvc();
 		}
 	}

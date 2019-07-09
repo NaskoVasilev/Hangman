@@ -1,5 +1,6 @@
 ﻿using Hangman.Data;
 using Hangman.Data.Seeding;
+using Hangman.WebApi.Infrastrucure.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace Hangman.WebApi.Extensions
 					seeder.Seed(scope.ServiceProvider).GetAwaiter().GetResult();
 				}
 			}
+		}
+
+		public static void UseTokenBasedAuthentication(this IApplicationBuilder applicationBuilder)
+		{
+			applicationBuilder.UseMiddleware<AuthenticationMiddleware>();
 		}
 	}
 }
