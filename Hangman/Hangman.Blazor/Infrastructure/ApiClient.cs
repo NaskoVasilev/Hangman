@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Hangman.Blazor.Infrastructure
 {
-	public class ApiClient
+	public class ApiClient : IApiClient
 	{
 		private readonly HttpClient httpClinet;
 
@@ -14,11 +14,13 @@ namespace Hangman.Blazor.Infrastructure
 			this.httpClinet = httpClinet;
 		}
 
+		public Task<string> GetRandomWord() => this.GetJson<string>("word/GetRandomWord");
 
-		private Task<T> GetJson<T>(string path)
+		private async Task<T> GetJson<T>(string path)
 		{
-			string url = GlobalConstants
+			string url = GlobalConstants.ApiBaseUrl + path;
 			T result = await httpClinet.GetJsonAsync<T>(url);
+			return result;
 		}
 	}
 }
