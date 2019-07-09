@@ -4,6 +4,7 @@ using Hangman.Data;
 using Hangman.Mappings;
 using Hangman.Models;
 using Hangman.Shared.InputModels.User;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hangman.Services
 {
@@ -30,6 +31,13 @@ namespace Hangman.Services
 		public bool UserWithTheSameUsernameOrEmailExists(string username, string email)
 		{
 			return context.Users.Any(u => u.Username == username || u.Email == email);
+		}
+
+		public async Task<ApplicationUser> GetUserByUserNameAndPassword(string username, string password)
+		{
+			string hashedPassword = hasher.Hash(password);
+			var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == hashedPassword);
+			return user;
 		}
 	}
 }

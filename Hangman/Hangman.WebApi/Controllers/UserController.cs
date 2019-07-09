@@ -2,7 +2,9 @@
 using Hangman.Models;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
+using Hangman.WebApi.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Controllers
@@ -10,14 +12,16 @@ namespace Hangman.WebApi.Controllers
 	public class UserController : ApiController
 	{
 		private readonly IUserService userService;
+		private readonly TokenProvider tokenProvider;
 
-		public UserController(IUserService userService)
+		public UserController(IUserService userService, TokenProvider tokenProvider)
 		{
 			this.userService = userService;
+			this.tokenProvider = tokenProvider;
 		}
 
 		[HttpPost("[action]")]
-		public async Task<ActionResult<ApplicationUser>> Register(UserRegisterInputModel model)
+		public async Task<ActionResult> Register(UserRegisterInputModel model)
 		{
 			bool userWithTheSameUsernameOrEmailExists = userService.UserWithTheSameUsernameOrEmailExists(model.Username, model.Email);
 			if(userWithTheSameUsernameOrEmailExists)
@@ -26,12 +30,19 @@ namespace Hangman.WebApi.Controllers
 			}
 
 			ApplicationUser user = await userService.CreateUser(model);
-			return user;
+			return Ok();
 		}
 
-		public async Task<ActionResult<string>> Login(UserLoginInputModel model)
+		public async Task<ActionResult<string>> Login(UserLoginInputModel model, [FromServices]IOptions<AuthenticationSettings> settings)
 		{
-			return null;
+			ApplicationUser user = await userService.GetUserByUserNameAndPassword(model.Username, model.Password);
+			if(user == null)
+			{
+				return BadRequest(ErrorMessages.InvalidUserNamrOrPassword);
+			}
+
+			var token = tokenProvider.GenerateToken(user.Username, user.Id, settings.Value.Secret);
+			return token;
 		}
 	}
 }

@@ -9,5 +9,7 @@ namespace Hangman.Services
 		Task<ApplicationUser> CreateUser(UserRegisterInputModel model);
 
 		bool UserWithTheSameUsernameOrEmailExists(string username, string email);
+
+		Task<ApplicationUser> GetUserByUserNameAndPassword(string username, string password);
 	}
 }

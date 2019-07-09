@@ -2,6 +2,7 @@
 using Hangman.Mappings;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
+using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,8 +30,13 @@ namespace Hangman.WebApi
 			.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddTransient<IHasher, Hasher>();
+			services.AddTransient<TokenProvider>();
+
 			services.AddScoped<IWordService, WordService>();
 			services.AddScoped<IUserService, UserService>();
+
+			var authenticationSection = Configuration.GetSection("Authentication");
+			services.Configure<AuthenticationSettings>(authenticationSection);
 
 			services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
