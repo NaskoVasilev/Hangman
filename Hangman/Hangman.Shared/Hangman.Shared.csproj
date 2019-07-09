@@ -12,4 +12,9 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Hangman.Mappings\Hangman.Mappings.csproj" />
+    <ProjectReference Include="..\Hangman.Models\Hangman.Models.csproj" />
+  </ItemGroup>
+
 </Project>

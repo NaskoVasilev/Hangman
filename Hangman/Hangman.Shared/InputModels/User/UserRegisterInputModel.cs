@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Hangman.Mappings;
+using Hangman.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hangman.Shared.InputModels.User
 {
-	public class UserRegisterInputModel
+	public class UserRegisterInputModel : IMapTo<ApplicationUser>
 	{
 		private const int UsernameMinLength = 5;
 		private const int PasswordMinLength = 5;
@@ -17,7 +19,7 @@ namespace Hangman.Shared.InputModels.User
 
 		[Required]
 		[MinLength(PasswordMinLength)]
-		[Compare(nameof(ConfirmPassword)]
+		[Compare(nameof(ConfirmPassword))]
 		public string Password { get; set; }
 
 		public string ConfirmPassword { get; set; }

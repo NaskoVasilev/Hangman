@@ -1,5 +1,4 @@
-﻿using Hangman.Common;
-using Hangman.Data;
+﻿using Hangman.Data;
 using Hangman.Mappings;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
@@ -29,7 +28,9 @@ namespace Hangman.WebApi
 			services.AddDbContext<ApplicationDbContext>(options => options
 			.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			services.AddSingleton<IWordService, WordService>();
+			services.AddTransient<IHasher, Hasher>();
+			services.AddScoped<IWordService, WordService>();
+			services.AddScoped<IUserService, UserService>();
 
 			services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
