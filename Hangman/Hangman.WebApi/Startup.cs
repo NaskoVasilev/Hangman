@@ -1,6 +1,8 @@
 ﻿using Hangman.Common;
 using Hangman.Data;
+using Hangman.Mappings;
 using Hangman.Services;
+using Hangman.Shared.InputModels.User;
 using Hangman.WebApi.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +24,8 @@ namespace Hangman.WebApi
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			AutoMapperConfig.RegisterMappings(typeof(UserRegisterInputModel).Assembly);
+
 			services.AddDbContext<ApplicationDbContext>(options => options
 			.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
