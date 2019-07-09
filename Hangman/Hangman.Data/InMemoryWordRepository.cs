@@ -12,7 +12,7 @@ namespace Hangman.Data
 
 		public InMemoryWordRepository()
 		{
-			this.words = new List<string>();
+			words = new List<string>();
 		}
 
 		public void AddWord(string word)
@@ -22,7 +22,7 @@ namespace Hangman.Data
 				throw new ArgumentException(ExistingWordError);
 			}
 
-			this.words.Add(word);
+			words.Add(word);
 		}
 
 		public string GetRandomWord()

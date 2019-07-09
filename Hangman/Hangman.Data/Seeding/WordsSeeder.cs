@@ -12,7 +12,7 @@ namespace Hangman.Data.Seeding
 				"monkey",
 				"selection",
 				"blazor",
-				"web api",
+				"webapi",
 				"browser",
 				"csharp",
 				"development",

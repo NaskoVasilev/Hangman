@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Services", "Hangman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Blazor", "Hangman.Blazor\Hangman.Blazor.csproj", "{55FF7366-464E-4631-9991-0E338D31DEAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Shared", "Hangman.Shared\Hangman.Shared.csproj", "{E5996C3C-B996-420F-BA6F-2A268C328468}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{55FF7366-464E-4631-9991-0E338D31DEAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55FF7366-464E-4631-9991-0E338D31DEAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55FF7366-464E-4631-9991-0E338D31DEAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5996C3C-B996-420F-BA6F-2A268C328468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5996C3C-B996-420F-BA6F-2A268C328468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5996C3C-B996-420F-BA6F-2A268C328468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5996C3C-B996-420F-BA6F-2A268C328468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
