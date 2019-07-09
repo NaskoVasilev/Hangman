@@ -22,7 +22,7 @@ namespace Hangman.WebApi
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddSingleton<IWordService, WordService>();
-			services.AddSingleton<IWordRepository, InMemoryWordRepository>();
+
 			services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
