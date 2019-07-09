@@ -8,12 +8,12 @@ namespace Hangman.Logic
 	{
 		public string CurrentWord { get; set; }
 
-		public string GameWord { get; set; }
+		public string PlayingWord { get; set; }
 
 		public void InitializeNewWord(string word)
 		{
 			CurrentWord = word;
-			GameWord = new string('_', word.Length);
+			PlayingWord = new string('_', word.Length);
 		}
 	}
 }

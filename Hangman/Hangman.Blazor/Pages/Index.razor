@@ -9,20 +9,17 @@
 	<button type="submit" onclick="">Check</button>
 </div>
 <div>
-	@GameWord
+	@Game.PlayingWord
 </div>
 
 @functions{
-	public string CurrentWord { get; set; }
-
-	public string GameWord { get; set; }
-
 	public string Letter { get; set; }
 
 	private async Task GetRandomWord()
 	{
-		Console.WriteLine('here');
-		string word = await this.ApiClient.GetRandomWord();
+		Console.WriteLine("here");
+		string word = "atanas";//await this.ApiClient.GetRandomWord();
+		Console.WriteLine(word);
 		Game.InitializeNewWord(word);
 	}
 }

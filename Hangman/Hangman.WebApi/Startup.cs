@@ -23,7 +23,7 @@ namespace Hangman.WebApi
 		{
 			services.AddSingleton<IWordService, WordService>();
 			services.AddSingleton<IWordRepository, InMemoryWordRepository>();
-
+			services.AddCors();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
@@ -40,6 +40,11 @@ namespace Hangman.WebApi
 
 			app.UseDataSeeders();
 			app.UseHttpsRedirection();
+			app.UseCors(options => 
+			{
+				options.AllowAnyHeader();
+				options.WithOrigins("http://localhost:54685");
+			});
 			app.UseMvc();
 		}
 	}
