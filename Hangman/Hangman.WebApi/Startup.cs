@@ -5,6 +5,7 @@ using Hangman.Services;
 using Hangman.Shared.InputModels.User;
 using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Extensions;
+using Hangman.WebApi.Infrastrucure.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +46,11 @@ namespace Hangman.WebApi
 			services.Configure<AdminData>(adminDataSection);
 
 			services.AddCors();
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc(options => 
+			{
+				options.Filters.Add(typeof(AuthorizeFilter));
+
+			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

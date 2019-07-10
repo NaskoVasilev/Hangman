@@ -1,5 +1,6 @@
 ﻿using Hangman.Services;
 using Hangman.WebApi.Authentication;
+using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -25,7 +26,7 @@ namespace Hangman.WebApi.Infrastrucure.Filters
 			if (controllerActionDescriptor != null)
 			{
 				var authorizeAttributeObject = controllerActionDescriptor.MethodInfo.GetCustomAttributes(inherit: true)
-					.FirstOrDefault(a => a is AuthorizeAttribute);
+					.FirstOrDefault(a => a is AuthorizationAttribute);
 
 				if(authorizeAttributeObject != null)
 				{

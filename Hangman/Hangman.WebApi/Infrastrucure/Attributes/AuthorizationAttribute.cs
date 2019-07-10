@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Hangman.WebApi.Infrastrucure.Filters
+namespace Hangman.WebApi.Infrastrucure.Attributes
 {
 	public class AuthorizationAttribute : Attribute
 	{
@@ -10,7 +10,7 @@ namespace Hangman.WebApi.Infrastrucure.Filters
 
 		public AuthorizationAttribute(string roles)
 		{
-			this.Roles = roles;
+			Roles = roles;
 		}
 
 		public string Roles { get; set; }

@@ -3,6 +3,7 @@ using Hangman.Models;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
 using Hangman.WebApi.Authentication;
+using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
@@ -13,11 +14,13 @@ namespace Hangman.WebApi.Controllers
 	{
 		private readonly IUserService userService;
 		private readonly TokenProvider tokenProvider;
+		private readonly UserPrincipal userPrincipal;
 
-		public UserController(IUserService userService, TokenProvider tokenProvider)
+		public UserController(IUserService userService, TokenProvider tokenProvider, UserPrincipal userPrincipal)
 		{
 			this.userService = userService;
 			this.tokenProvider = tokenProvider;
+			this.userPrincipal = userPrincipal;
 		}
 
 		[HttpPost("[action]")]
@@ -44,6 +47,20 @@ namespace Hangman.WebApi.Controllers
 
 			var token = tokenProvider.GenerateToken(user.Username, user.Id, settings.Value.Secret);
 			return token;
+		}
+
+		[Authorization]
+		[HttpGet("me")]
+		public ActionResult<string> GetUsername()
+		{
+			return userPrincipal.Username;
+		}
+
+		[Authorization(Roles = "Admin")]
+		[HttpGet("admin")]
+		public ActionResult<string> GetAdminData()
+		{
+			return userPrincipal.UserId;
 		}
 	}
 }
