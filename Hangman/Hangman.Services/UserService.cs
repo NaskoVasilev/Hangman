@@ -40,5 +40,21 @@ namespace Hangman.Services
 			var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == hashedPassword);
 			return user;
 		}
+
+		public ApplicationUser GetById(string userId)
+		{
+			return context.Users.FirstOrDefault(u => u.Id == userId);
+		}
+
+		public bool IsInRole(string roleName, string userId)
+		{
+			ApplicationRole role = context.Roles.FirstOrDefault(r => r.Name == roleName);
+			if(role == null)
+			{
+				return false;
+			}
+
+			return context.UserRoles.Any(ur => ur.UserId == userId && ur.RoleId == role.Id);
+		}
 	}
 }

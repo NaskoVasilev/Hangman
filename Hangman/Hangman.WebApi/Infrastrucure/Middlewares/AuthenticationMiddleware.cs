@@ -5,10 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Infrastrucure.Middlewares
@@ -23,7 +20,8 @@ namespace Hangman.WebApi.Infrastrucure.Middlewares
 			this.next = next;
 		}
 
-		public async Task InvokeAsync(HttpContext context, IUserService userService, IHasher hasher, IOptions<AuthenticationSettings> settings)
+		public async Task InvokeAsync(HttpContext context, IUserService userService, IHasher hasher, 
+			IOptions<AuthenticationSettings> settings, UserPrincipal userPrincipal)
 		{
 			var authorizationHeaderExists = context.Request.Headers.TryGetValue(AuthorizationHeaderKey, out StringValues value);
 
@@ -38,11 +36,14 @@ namespace Hangman.WebApi.Infrastrucure.Middlewares
 				//Validate token
 				if(hasher.Hash(userData.UserId + settings.Value.Secret) == pairs[1])
 				{
-					var identityType = context.User.Identity.GetType();
-					var field = identityType.GetField("<Name>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
-						//.SetValue(context.User.Identity, userData.Username);
-					identityType.GetField("<IsAuthenticated>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic)
-						.SetValue(context.User.Identity, userData.Username);
+					userPrincipal.UserId = userData.UserId;
+					userPrincipal.Username = userData.Username;
+
+					//var identityType = context.User.Identity.GetType()
+					//var field = identityType.GetField("<Name>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
+					//	.SetValue(context.User.Identity, userData.Username);
+					//identityType.GetField("<IsAuthenticated>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic)
+					//	.SetValue(context.User.Identity, userData.Username);
 				}
 			}
 

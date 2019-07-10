@@ -33,6 +33,8 @@ namespace Hangman.WebApi
 			services.AddTransient<IHasher, Hasher>();
 			services.AddTransient<TokenProvider>();
 
+			services.AddScoped<UserPrincipal>();
+
 			services.AddScoped<IWordService, WordService>();
 			services.AddScoped<IUserService, UserService>();
 

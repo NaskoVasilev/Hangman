@@ -1,6 +1,6 @@
-﻿namespace Hangman.Common
+﻿namespace Hangman.WebApi.Authentication
 {
-	public class ControllerUser
+	public class UserPrincipal
 	{
 		public string Username { get; set; }
 
