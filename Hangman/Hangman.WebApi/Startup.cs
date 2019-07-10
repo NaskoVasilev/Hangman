@@ -3,6 +3,7 @@ using Hangman.Data;
 using Hangman.Mappings;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
+using Hangman.Shared.ResponseModels;
 using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Extensions;
 using Hangman.WebApi.Infrastrucure.Filters;
@@ -26,7 +27,7 @@ namespace Hangman.WebApi
 
 		public void ConfigureServices(IServiceCollection services)
 		{
-			AutoMapperConfig.RegisterMappings(typeof(UserRegisterInputModel).Assembly);
+			AutoMapperConfig.RegisterMappings(typeof(UserRegisterInputModel).Assembly, typeof(UserResponseModel).Assembly);
 
 			services.AddDbContext<ApplicationDbContext>(options => options
 			.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -45,7 +46,12 @@ namespace Hangman.WebApi
 			var adminDataSection = Configuration.GetSection("AdminData");
 			services.Configure<AdminData>(adminDataSection);
 
-			services.AddCors();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
+
+            services.AddCors();
 			services.AddMvc(options => 
 			{
 				options.Filters.Add(typeof(AuthorizeFilter));

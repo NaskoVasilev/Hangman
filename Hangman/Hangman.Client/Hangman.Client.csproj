@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Hangman.Shared\Hangman.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+  </ItemGroup>
+
 </Project>
