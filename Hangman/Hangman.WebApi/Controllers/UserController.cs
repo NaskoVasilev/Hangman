@@ -45,16 +45,17 @@ namespace Hangman.WebApi.Controllers
 		}
 
 		[HttpPost("[action]")]
-		public async Task<ApiResponse<string>> Login(UserLoginInputModel model, [FromServices]IOptions<AuthenticationSettings> settings)
+		public async Task<ApiResponse<AuthenticatedUserResponseModel>> Login(UserLoginInputModel model, [FromServices]IOptions<AuthenticationSettings> settings)
 		{
 			ApplicationUser user = await userService.GetUserByUserNameAndPassword(model.Username, model.Password);
 			if(user == null)
 			{
-                return this.Error<string>(ErrorMessages.InvalidUserNamrOrPassword);
+                return this.Error<AuthenticatedUserResponseModel>(ErrorMessages.InvalidUserNamrOrPassword);
 			}
 
 			var token = tokenProvider.GenerateToken(user.Username, user.Id, settings.Value.Secret);
-			return new ApiResponse<string>(token);
+            var authenticatedUser = new AuthenticatedUserResponseModel { Username = user.Username, UserToken = token };
+			return new ApiResponse<AuthenticatedUserResponseModel>(authenticatedUser);
 		}
 
 		[Authorization]

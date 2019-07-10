@@ -11,5 +11,6 @@ window.tokenManager = {
     },
     remove: function () {
         window.localStorage.removeItem(tokenKey);
+        return true;
     }
 };
