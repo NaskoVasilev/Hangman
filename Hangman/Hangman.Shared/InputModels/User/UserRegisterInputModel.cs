@@ -1,4 +1,5 @@
-﻿using Hangman.Mappings;
+﻿using AutoMapper;
+using Hangman.Mappings;
 using Hangman.Models;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,5 +24,7 @@ namespace Hangman.Shared.InputModels.User
 		public string Password { get; set; }
 
 		public string ConfirmPassword { get; set; }
+
+		
 	}
 }
