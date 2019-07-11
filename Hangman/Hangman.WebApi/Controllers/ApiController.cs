@@ -17,9 +17,10 @@ namespace Hangman.WebApi.Controllers
 
         protected ApiResponse<T> ModelStateErrors<T>()
         {
+            var response = new ApiResponse<T>();
             if (this.ModelState == null || this.ModelState.Count == 0)
             {
-                var response = new ApiResponse<T>();
+               
                 response.AddError("Empty or null model.");
                 return response;
             }
@@ -33,7 +34,9 @@ namespace Hangman.WebApi.Controllers
                 }
             }
 
-            return new ApiResponse<T>(errors);
+            response =  new ApiResponse<T>(errors);
+            response.HttpStatusCode = 400;
+            return response;
         }
     }
 }

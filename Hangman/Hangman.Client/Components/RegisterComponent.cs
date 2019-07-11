@@ -40,6 +40,13 @@ namespace Hangman.Client.Components
                 Console.WriteLine(Response.Data.Email);
                 UriHelper.NavigateTo("/login");
             }
+            else
+            {
+                foreach (var erro in Response.Errors)
+                {
+                    Console.WriteLine(erro);
+                }
+            }
         }
     }
 }

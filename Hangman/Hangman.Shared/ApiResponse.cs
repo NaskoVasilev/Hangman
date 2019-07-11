@@ -9,6 +9,8 @@ namespace Hangman.Shared
         {
         }
 
+        public int HttpStatusCode { get; set; }
+
         public ApiResponse(T data)
         {
             this.Data = data;

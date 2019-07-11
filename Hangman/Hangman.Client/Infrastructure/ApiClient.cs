@@ -45,6 +45,7 @@ namespace Hangman.Client.Infrastructure
             }
             catch (Exception ex)
             {
+
                 var response = new ApiResponse<T>();
                 response.AddError(ex.Message);
                 return response;

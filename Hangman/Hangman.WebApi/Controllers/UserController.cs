@@ -31,6 +31,7 @@ namespace Hangman.WebApi.Controllers
 		{
             if (!ModelState.IsValid)
             {
+
                 return this.ModelStateErrors<UserResponseModel>();
             }
 
