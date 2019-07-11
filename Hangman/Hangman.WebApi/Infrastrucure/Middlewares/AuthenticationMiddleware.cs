@@ -12,7 +12,7 @@ namespace Hangman.WebApi.Infrastrucure.Middlewares
 {
 	public class AuthenticationMiddleware
 	{
-		private const string AuthorizationHeaderKey = "Authorization";
+		public const string AuthorizationHeaderKey = "Authorization";
 		private readonly RequestDelegate next;
 
 		public AuthenticationMiddleware(RequestDelegate next)
@@ -20,7 +20,7 @@ namespace Hangman.WebApi.Infrastrucure.Middlewares
 			this.next = next;
 		}
 
-		public async Task InvokeAsync(HttpContext context, IUserService userService, IHasher hasher, 
+		public async Task InvokeAsync(HttpContext context, IHasher hasher, 
 			IOptions<AuthenticationSettings> settings, UserPrincipal userPrincipal)
 		{
 			var authorizationHeaderExists = context.Request.Headers.TryGetValue(AuthorizationHeaderKey, out StringValues value);

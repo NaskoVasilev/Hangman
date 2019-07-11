@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Hangman.Logic
 {
-	public class Game
+    public class GameEngine
 	{
-		public string CurrentWord { get; set; }
+		public string CurrentWord { get; private set; }
 
-		public string PlayingWord { get; set; }
+		public string PlayingWord { get; private set; }
 
 		public void InitializeNewWord(string word)
 		{
@@ -18,7 +17,6 @@ namespace Hangman.Logic
 
 		public void AddMatchingLetters(string letter)
 		{
-			Console.WriteLine(letter);
 			for (int i = 0; i < CurrentWord.Length; i++)
 			{
 				if(CurrentWord[i].ToString() == letter)
