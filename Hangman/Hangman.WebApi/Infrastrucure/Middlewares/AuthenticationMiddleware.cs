@@ -1,5 +1,4 @@
 ﻿using Hangman.Common;
-using Hangman.Services;
 using Hangman.WebApi.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Infrastrucure.Middlewares
 {
-	public class AuthenticationMiddleware
+    public class AuthenticationMiddleware
 	{
 		public const string AuthorizationHeaderKey = "Authorization";
 		private readonly RequestDelegate next;
