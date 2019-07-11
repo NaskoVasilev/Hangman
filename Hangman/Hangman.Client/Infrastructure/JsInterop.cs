@@ -17,9 +17,9 @@ namespace Hangman.Client.Infrastructure
             return await jsRuntime.InvokeAsync<string>("tokenManager.get");
         }
 
-        public async Task<bool> SaveToken()
+        public async Task<bool> SaveToken(string token)
         {
-            return await jsRuntime.InvokeAsync<bool>("tokenManager.save");
+            return await jsRuntime.InvokeAsync<bool>("tokenManager.save", token);
         }
 
         public async Task<bool> RemoveToken()

@@ -75,7 +75,7 @@ namespace Hangman.WebApi
 			app.UseCors(options => 
 			{
 				options.AllowAnyHeader();
-				options.WithOrigins("http://localhost:54685");
+				options.WithOrigins("http://localhost:51295");
 			});
 			//Enable application custom tiken based authentication
 			app.UseTokenBasedAuthentication();

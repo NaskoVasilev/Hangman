@@ -1,4 +1,5 @@
-﻿using Hangman.Shared;
+﻿using Hangman.Common;
+using Hangman.Shared;
 using Hangman.Shared.InputModels.User;
 using Hangman.Shared.ResponseModels;
 using Microsoft.AspNetCore.Components;
@@ -29,8 +30,10 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<AuthenticatedUserResponseModel>> Login(UserLoginInputModel data) =>
            this.PostJson<AuthenticatedUserResponseModel>("user/login", data);
 
-        private async Task<ApiResponse<T>> PostJson<T>(string url, object request)
+        private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
+            string url = ConstructUrl(path);
+
             if (await jsInterop.GetToken() != null)
             {
                 this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.applicationState.UserToken);
@@ -48,8 +51,10 @@ namespace Hangman.Client.Infrastructure
             }
         }
 
-        private async Task<ApiResponse<T>> GetJson<T>(string url)
+        private async Task<ApiResponse<T>> GetJson<T>(string path)
         {
+            string url = ConstructUrl(path);
+
             if (await jsInterop.GetToken() != null)
             {
                 this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.applicationState.UserToken);
@@ -65,6 +70,11 @@ namespace Hangman.Client.Infrastructure
                 response.AddError(ex.Message);
                 return response;
             }
+        }
+
+        private string ConstructUrl(string path)
+        {
+            return GlobalConstants.ApiBaseUrl + path;
         }
     }
 }

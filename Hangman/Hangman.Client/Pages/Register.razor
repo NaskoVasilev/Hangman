@@ -2,6 +2,9 @@
 @inherits RegisterComponent
 
 <h1>Register</h1>
+
+<ErrorsList Errors=@this.Response?.Errors />
+
 <div class="row">
     <div class="col-md-4">
         <section>
