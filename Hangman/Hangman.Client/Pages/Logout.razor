@@ -1,0 +1,16 @@
+@page "/logout"
+@inject JsInterop JsInterop
+@inject IUriHelper UriHelper
+@inject ApplicationState State
+
+<h1>Logging out...</h1>
+
+@code { 
+    protected override async Task OnInitAsync()
+    {
+        await JsInterop.RemoveToken();
+        State.CleareState();
+        UriHelper.NavigateTo("/");
+
+    }
+}   

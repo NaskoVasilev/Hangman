@@ -7,5 +7,11 @@
         public string UserToken { get; set; }
 
         public bool IsLoggedIn => UserToken != null;
+
+        public void CleareState()
+        {
+            this.Username = null;
+            this.UserToken = null;
+        }
     }
 }
