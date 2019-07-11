@@ -54,6 +54,9 @@ namespace Hangman.WebApi
             services.AddCors();
 			services.AddMvc(options => 
 			{
+                //Integration tests require this setting
+                options.EnableEndpointRouting = false;
+
 				options.Filters.Add(typeof(AuthorizeFilter));
 
 			}).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
