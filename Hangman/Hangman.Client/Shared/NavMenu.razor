@@ -1,7 +1,7 @@
 ﻿@inject ApplicationState State
 
 <div class="top-row pl-4 navbar navbar-dark">
-    <a class="navbar-brand" href="">Hangman.Client</a>
+    <a class="navbar-brand" href="">Hangman</a>
     <button class="navbar-toggler" @onclick="@ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,9 +14,11 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </li>
-
         @if (State.IsLoggedIn)
         {
+            <li class="nav-item px-3 text-white">
+                Welcome, @State.Username
+            </li>
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="start">
                     <span class="oi oi-plus" aria-hidden="true"></span> Start Game
@@ -64,5 +66,12 @@
     void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnInitAsync()
+    {
+        await State.RestoreFromLocalStorage();
+        State.OnUserDataChange += this.StateHasChanged;
+        Console.WriteLine("menu item on init");
     }
 }

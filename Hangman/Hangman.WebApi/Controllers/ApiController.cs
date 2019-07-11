@@ -35,7 +35,6 @@ namespace Hangman.WebApi.Controllers
             }
 
             response =  new ApiResponse<T>(errors);
-            response.HttpStatusCode = 400;
             return response;
         }
     }

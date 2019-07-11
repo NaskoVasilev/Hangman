@@ -30,13 +30,16 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<AuthenticatedUserResponseModel>> Login(UserLoginInputModel data) =>
            this.PostJson<AuthenticatedUserResponseModel>("user/login", data);
 
+        public Task<ApiResponse<string>> AboutMe() =>
+           this.GetJson<string>("user/me");
+
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
             string url = ConstructUrl(path);
 
             if (await jsInterop.GetToken() != null)
             {
-                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.applicationState.UserToken);
+                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await jsInterop.GetToken());
             }
 
             try
@@ -58,7 +61,7 @@ namespace Hangman.Client.Infrastructure
 
             if (await jsInterop.GetToken() != null)
             {
-                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.applicationState.UserToken);
+                this.httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", await jsInterop.GetToken());
             }
 
             try

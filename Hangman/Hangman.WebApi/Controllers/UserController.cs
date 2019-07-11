@@ -31,7 +31,6 @@ namespace Hangman.WebApi.Controllers
 		{
             if (!ModelState.IsValid)
             {
-
                 return this.ModelStateErrors<UserResponseModel>();
             }
 
@@ -61,16 +60,16 @@ namespace Hangman.WebApi.Controllers
 
 		[Authorization]
 		[HttpGet("me")]
-		public ActionResult<string> GetUsername()
+		public ActionResult<ApiResponse<string>> GetUsername()
 		{
-			return userPrincipal.Username;
+			return new ApiResponse<string>(this.userPrincipal.Username);
 		}
 
 		[Authorization(Roles = "Admin")]
 		[HttpGet("admin")]
-		public ActionResult<string> GetAdminData()
+		public ActionResult<ApiResponse<string>> GetAdminData()
 		{
-			return userPrincipal.UserId;
-		}
+            return new ApiResponse<string>(this.userPrincipal.UserId);
+        }
 	}
 }

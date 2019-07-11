@@ -1,7 +1,45 @@
 ﻿@page "/"
+@inject ApiClient Client
+@inject ApplicationState State
 
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+<button @onclick="@GetUsername">
+    me
+</button>
+
+<div>
+    Welcome, @State.Username - do you want to start play.
+</div>
+
+@code{ 
+protected override void OnInit()
+{
+    State.OnUserDataChange += this.StateHasChanged;
+    base.OnInit();
+}
+
+private string username = "";
+
+async Task GetUsername()
+{
+    var response = await Client.AboutMe();
+    if (response.IsOk)
+    {
+        username = response.Data;
+    }
+    else
+    {
+        foreach (var error in response.Errors)
+        {
+            Console.WriteLine(error);
+            Console.WriteLine("here");
+        }
+    }
+
+}
+}
