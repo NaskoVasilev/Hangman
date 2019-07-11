@@ -1,7 +1,6 @@
 ﻿using Hangman.Services;
 using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Infrastrucure.Attributes;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -9,7 +8,7 @@ using System.Linq;
 
 namespace Hangman.WebApi.Infrastrucure.Filters
 {
-	public class AuthorizeFilter : IActionFilter
+    public class AuthorizeFilter : IActionFilter
 	{
 		private readonly IUserService userService;
 		private readonly UserPrincipal user;
@@ -33,7 +32,7 @@ namespace Hangman.WebApi.Infrastrucure.Filters
 					var authorizeAttribute = authorizeAttributeObject as AuthorizationAttribute;
 					if (userService.GetById(user.UserId) == null)
 					{
-						context.Result = new BadRequestResult();
+						context.Result = new UnauthorizedResult();
 						return;
 					}
 
@@ -52,7 +51,7 @@ namespace Hangman.WebApi.Infrastrucure.Filters
 
 						if(!isAtLeastInOneRole)
 						{
-							context.Result = new BadRequestResult();
+							context.Result = new UnauthorizedResult();
 							return;
 						}
 					}

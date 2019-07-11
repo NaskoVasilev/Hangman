@@ -38,12 +38,6 @@ namespace Hangman.WebApi.Infrastrucure.Middlewares
 				{
 					userPrincipal.UserId = userData.UserId;
 					userPrincipal.Username = userData.Username;
-
-					//var identityType = context.User.Identity.GetType()
-					//var field = identityType.GetField("<Name>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic);
-					//	.SetValue(context.User.Identity, userData.Username);
-					//identityType.GetField("<IsAuthenticated>k__BackingField", BindingFlags.Instance | BindingFlags.NonPublic)
-					//	.SetValue(context.User.Identity, userData.Username);
 				}
 			}
 
