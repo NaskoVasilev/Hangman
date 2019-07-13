@@ -26,5 +26,20 @@ namespace Hangman.Client.Infrastructure
         {
             return await jsRuntime.InvokeAsync<bool>("tokenManager.remove");
         }
+
+        public async Task<string> GetSessionStorageItem()
+        {
+            return await jsRuntime.InvokeAsync<string>("sessionStorageManager.get");
+        }
+
+        public async Task<bool> SetSessionStorageItem(string token)
+        {
+            return await jsRuntime.InvokeAsync<bool>("sessionStorageManager.set", token);
+        }
+
+        public async Task<bool> RemoveSessionStorageItem()
+        {
+            return await jsRuntime.InvokeAsync<bool>("sessionStorageManager.remove");
+        }
     }
 }
