@@ -33,6 +33,9 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<string>> AboutMe() =>
            this.GetJson<string>("user/me");
 
+        public Task<ApiResponse<string>> GetRandomWord(string level) =>
+          this.GetJson<string>($"word/getRandomWord?level={level}");
+
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
             string url = ConstructUrl(path);

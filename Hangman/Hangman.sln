@@ -25,9 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Services.Tests", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Client", "Hangman.Client\Hangman.Client.csproj", "{EC78D830-7621-456D-8B75-7B23ABEB5415}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.Logic.Tests", "Hangman.Logic.Tests\Hangman.Logic.Tests.csproj", "{A725E96E-4BC0-4951-B1AC-34F366A3ECB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.Logic.Tests", "Hangman.Logic.Tests\Hangman.Logic.Tests.csproj", "{A725E96E-4BC0-4951-B1AC-34F366A3ECB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangman.WebApi.Tests", "Hangman.WebApi.Tests\Hangman.WebApi.Tests.csproj", "{5BC0D3B3-2862-4B8B-8470-2B5BC031C852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hangman.WebApi.Tests", "Hangman.WebApi.Tests\Hangman.WebApi.Tests.csproj", "{5BC0D3B3-2862-4B8B-8470-2B5BC031C852}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

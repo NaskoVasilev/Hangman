@@ -1,4 +1,5 @@
 ﻿using Hangman.Services;
+using Hangman.Shared;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hangman.WebApi.Controllers
@@ -13,9 +14,9 @@ namespace Hangman.WebApi.Controllers
 		}
 
 		[HttpGet("[action]")]
-		public ActionResult<string> GetRandomWord()
+		public ActionResult<ApiResponse<string>> GetRandomWord()
 		{
-			return wordService.GetRandomWord();
+			return new ApiResponse<string>(wordService.GetRandomWord());
 		}
 	}
 }

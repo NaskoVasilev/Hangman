@@ -5,5 +5,7 @@
 		public const string UserWithTheSameUsernameOrEmailExists = "User with the same username or email already exists.";
 
 		public const string InvalidUserNamrOrPassword = "Invalid username or password.";
+
+        public const string InValidLevel = "Invalid word level is choosen.";
 	}
 }

@@ -7,5 +7,7 @@
 		public const string AdministratorRole = "Admin"; 
 
 		public const string PlayerRole = "Player";
+
+
 	}
 }

@@ -133,3 +133,21 @@ app {
         display: block;
     }
 }
+
+/*My custom css starts here*/
+.playing-word{
+    letter-spacing: 20px;
+    font-size: 70px;
+    font-weight: bold;
+}
+
+.letter-input{
+    font-size: 30px;
+    padding: 5px;
+    width: 100px;
+}
+
+.check-btn{
+    font-size: 30px;
+}
+

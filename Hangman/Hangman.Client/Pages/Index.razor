@@ -1,45 +1,45 @@
 ﻿@page "/"
 @inject ApiClient Client
 @inject ApplicationState State
+@inherits IndexComponent
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-
-<button @onclick="@GetUsername">
-    me
-</button>
-
-<div>
-    Welcome, @State.Username - do you want to start play.
-</div>
-
-@code{ 
-protected override void OnInit()
+@if (!State.IsLoggedIn)
 {
-    State.OnUserDataChange += this.StateHasChanged;
-    base.OnInit();
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Hangman</h1>
+            <p class="lead">
+                Login if you want to enjoy yourself playing Hangman.
+            </p>
+            <p class="lead">
+                Register if you do not have an account.
+            </p>
+        </div>
+    </div>
 }
-
-private string username = "";
-
-async Task GetUsername()
+else
 {
-    var response = await Client.AboutMe();
-    if (response.IsOk)
-    {
-        username = response.Data;
-    }
-    else
-    {
-        foreach (var error in response.Errors)
-        {
-            Console.WriteLine(error);
-            Console.WriteLine("here");
-        }
-    }
-
-}
+    <div>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Hangman</h1>
+                <p class="lead">
+                    Hello,  @State.Username are you ready for fun. Choose level and click Start button to begin.
+                </p>
+                <p class="lead">
+                    Register if you do not have an account.
+                </p>
+                <div class="form-group w-25">
+                    <label>Choose level</label>
+                    <select class="form-control" @bind="@Level">
+                        <option value="1">Easy</option>
+                        <option value="2">Medium</option>
+                        <option value="3">Hard</option>
+                        <option value="4">Expert</option>
+                    </select>
+                </div>
+                <button class="btn btn-dark btn-lg" @onclick="@StartGame">Start</button>
+            </div>
+        </div>
+    </div>
 }

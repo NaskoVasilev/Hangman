@@ -1,0 +1,8 @@
+@page "/game"
+@inherits GameComponent
+
+<div class="playing-word text-dark text-center">@GameEngine.PlayingWord</div>
+<div class="d-flex justify-content-center mt-5">
+    <input class="form-control letter-input text-success" type="text" name="letter" @bind="@Letter" />
+    <button class="btn btn-dark ml-1 check-btn" @onclick="@Check">Check</button>
+</div>

@@ -1,4 +1,5 @@
 using Hangman.Client.Infrastructure;
+using Hangman.Logic;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace Hangman.Client
             services.AddSingleton<ApiClient>();
             services.AddSingleton<JsInterop>();
             services.AddSingleton<ApplicationState>();
+            services.AddSingleton<GameEngine>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
