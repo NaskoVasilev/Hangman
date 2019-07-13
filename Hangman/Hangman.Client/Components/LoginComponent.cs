@@ -2,25 +2,12 @@
 using Hangman.Shared;
 using Hangman.Shared.InputModels.User;
 using Hangman.Shared.ResponseModels;
-using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace Hangman.Client.Components
 {
-    public class LoginComponent : ComponentBase
+    public class LoginComponent : BaseHangmanComponent
     {
-        [Inject]
-        public ApiClient  ApiClient { get; set; }
-
-        [Inject]
-        public JsInterop JsInterop { get; set; }
-
-        [Inject]
-        public ApplicationState ApplicationState { get; set; }
-
-        [Inject]
-        public IUriHelper UriHelper { get; set; }
-
         public UserLoginInputModel InputModel { get; set; } = new UserLoginInputModel();
 
         public ApiResponse<AuthenticatedUserResponseModel> Response { get; set; }
