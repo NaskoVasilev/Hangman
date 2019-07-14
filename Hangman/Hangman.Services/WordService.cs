@@ -15,9 +15,9 @@ namespace Hangman.Services
 			this.context = context;
 		}
 
-		public string GetRandomWord(WordDifficulty wordDifficulty)
+		public string GetRandomWord(WordDifficulty wordDifficulty, int categoryId)
 		{
-            int wordsCount = context.Words.Count(x => x.WordDifficulty == wordDifficulty);
+            int wordsCount = context.Words.Count(x => x.WordDifficulty == wordDifficulty && x.CategoryId == categoryId);
 
             if (wordsCount == 0)
 			{
@@ -26,7 +26,7 @@ namespace Hangman.Services
 
 			int skippedWordsCount = new Random().Next(wordsCount);
 			string content = context.Words
-                .Where(w => w.WordDifficulty == wordDifficulty)
+                .Where(w => w.WordDifficulty == wordDifficulty && w.CategoryId == categoryId)
 				.Skip(skippedWordsCount)
 				.First()
 				.Content;
