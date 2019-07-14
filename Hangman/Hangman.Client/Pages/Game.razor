@@ -5,6 +5,7 @@
 {
     <button class="btn btn-dark joker-btn" @onclick="@UseJoker">Use Joker</button>
 }
+<div class="lg-text text-dark text-center">Category: @CategoryName</div>
 <div class="playing-word text-dark text-center">@GameEngine.PlayingWord</div>
 <div class="d-flex justify-content-center mt-5">
     <input class="form-control letter-input text-success" type="text" name="letter" @bind="@Letter" />

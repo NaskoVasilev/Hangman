@@ -28,8 +28,9 @@ namespace Hangman.Client.Components
 
         protected override async Task OnInitAsync()
         {
+            System.Console.WriteLine("waiting for categorirs");
             this.ApplicationState.OnUserDataChange += this.StateHasChanged;
-            if(ApplicationState.IsLoggedIn)
+            if(JsInterop.GetToken() != null)
             {
                 var response = await ApiClient.GetAllCategories();
                 WordCategories = response.Data;

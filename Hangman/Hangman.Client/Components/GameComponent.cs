@@ -14,11 +14,16 @@ namespace Hangman.Client.Components
 
         public ApiResponse<string> Response { get; set; }
 
+        public string CategoryName { get; set; }
+
         public string Letter { get; set; } = "";
 
         protected override async Task OnInitAsync()
         {
             this.GameEngine.Tracker.OnStateChange += this.StateHasChanged;
+            string categoryId = await JsInterop.GetSessionStorageItem(GlobalConstants.CategoryIdentifierKey);
+            var response = await ApiClient.GetCategoryNameById(categoryId);
+            CategoryName = response.Data;
             await LoadNewWord();
         }
 
@@ -50,7 +55,6 @@ namespace Hangman.Client.Components
 
         private async Task LoadNewWord()
         {
-            System.Console.WriteLine("here");
             string currentWord = await GetWordFromDatabase();
             GameEngine.InitializeNewWord(currentWord);
         }

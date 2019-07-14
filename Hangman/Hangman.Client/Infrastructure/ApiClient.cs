@@ -45,6 +45,10 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<IEnumerable<WordCategoryResponseModel>>> GetAllCategories() =>
          this.GetJson<IEnumerable<WordCategoryResponseModel>>($"wordCategory/all");
 
+        public Task<ApiResponse<string>> GetCategoryNameById(string id) =>
+        this.GetJson<string>($"wordCategory/getName?id=" + id);
+
+
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
             string url = ConstructUrl(path);

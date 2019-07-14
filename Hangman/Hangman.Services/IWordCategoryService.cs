@@ -11,5 +11,7 @@ namespace Hangman.Services
         Task<WordCategory> Create(WordCategoryCreateInputModel model);
 
         IEnumerable<WordCategoryResponseModel> All();
+
+        string GetNameById(int id);
     }
 }

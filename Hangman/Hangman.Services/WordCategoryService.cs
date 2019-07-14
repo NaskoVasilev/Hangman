@@ -30,5 +30,10 @@ namespace Hangman.Services
             await context.SaveChangesAsync();
             return wordCategory;
         }
+
+        public string GetNameById(int id)
+        {
+            return this.context.Categories.FirstOrDefault(x => x.Id == id)?.Name;
+        }
     }
 }

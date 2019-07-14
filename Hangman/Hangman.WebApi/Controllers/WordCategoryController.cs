@@ -36,5 +36,12 @@ namespace Hangman.WebApi.Controllers
             IEnumerable<WordCategoryResponseModel> categories = wordCategoryService.All();
             return new ApiResponse<IEnumerable<WordCategoryResponseModel>>(categories);
         }
+
+        [Route("[action]")]
+        public ApiResponse<string> GetName(int id)
+        {
+            string name = wordCategoryService.GetNameById(id);
+            return new ApiResponse<string>(name);
+        }
     }
 }
