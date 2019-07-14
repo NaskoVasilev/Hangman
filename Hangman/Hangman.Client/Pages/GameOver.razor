@@ -1,0 +1,13 @@
+@page "/gameOver/{CorrectWord}"
+
+<div class="text-center">
+    <h1 class="text-dark">Game Over</h1>
+    <p class="lg-text text-info">Correct word was: <span>@CorrectWord</span></p>
+    <p class="lg-text">Game results comes here</p>
+    <a href="/game" class="btn btn-dark btn-lg">Play again</a>
+</div>
+
+@code{
+    [Parameter]
+    public string CorrectWord { get; set; }
+}

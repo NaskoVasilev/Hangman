@@ -23,6 +23,14 @@ namespace Hangman.Client.Components
         public async Task Check()
         {
             this.GameEngine.AddMatchingLetters(this.Letter);
+
+            if (GameEngine.Tracker.GameOver)
+            {
+                this.StateHasChanged();
+                UriHelper.NavigateTo("/gameOver/" + GameEngine.CurrentWord);
+                return;
+            }
+
             this.Letter = "";
             if(GameEngine.PlayingWord == GameEngine.CurrentWord)
             {
@@ -32,6 +40,7 @@ namespace Hangman.Client.Components
 
         private async Task LoadNewWord()
         {
+            System.Console.WriteLine("here");
             string currentWord = await GetWordFromDatabase();
             GameEngine.InitializeNewWord(currentWord);
         }
@@ -39,10 +48,8 @@ namespace Hangman.Client.Components
         private async Task<string> GetWordFromDatabase()
         {
             string level = await JsInterop.GetSessionStorageItem(nameof(WordDifficulty));
-
             this.Response = await this.ApiClient.GetRandomWord(level);
             return this.Response.Data;
         }
-
     }
 }

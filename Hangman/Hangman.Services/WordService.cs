@@ -1,4 +1,5 @@
 ﻿using Hangman.Data;
+using Hangman.Models.Enums;
 using System;
 using System.Linq;
 
@@ -14,15 +15,18 @@ namespace Hangman.Services
 			this.context = context;
 		}
 
-		public string GetRandomWord()
+		public string GetRandomWord(WordDifficulty wordDifficulty)
 		{
-			if(!context.Words.Any())
+            int wordsCount = context.Words.Count(x => x.WordDifficulty == wordDifficulty);
+
+            if (wordsCount == 0)
 			{
 				throw new ArgumentException(NoWordsErrorMessage);
 			}
 
-			int skippedWordsCount = new Random().Next(context.Words.Count() - 1);
+			int skippedWordsCount = new Random().Next(wordsCount);
 			string content = context.Words
+                .Where(w => w.WordDifficulty == wordDifficulty)
 				.Skip(skippedWordsCount)
 				.First()
 				.Content;

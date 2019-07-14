@@ -1,4 +1,5 @@
-﻿using Hangman.Services;
+﻿using Hangman.Models.Enums;
+using Hangman.Services;
 using Hangman.Shared;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +14,11 @@ namespace Hangman.WebApi.Controllers
 			this.wordService = wordService;
 		}
 
-		[HttpGet("[action]")]
-		public ActionResult<ApiResponse<string>> GetRandomWord()
+        //TODO: Authoraize this action
+        [HttpGet("[action]")]
+        public ActionResult<ApiResponse<string>> GetRandomWord(WordDifficulty level = WordDifficulty.Easy)
 		{
-			return new ApiResponse<string>(wordService.GetRandomWord());
+            return new ApiResponse<string>(wordService.GetRandomWord(level));
 		}
 	}
 }

@@ -1,7 +1,9 @@
-﻿namespace Hangman.Services
+﻿using Hangman.Models.Enums;
+
+namespace Hangman.Services
 {
 	public interface IWordService
 	{
-		string GetRandomWord(); 
+		string GetRandomWord(WordDifficulty wordDifficulty); 
 	}
 }

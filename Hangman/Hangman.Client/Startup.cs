@@ -13,6 +13,7 @@ namespace Hangman.Client
             services.AddSingleton<JsInterop>();
             services.AddSingleton<ApplicationState>();
             services.AddSingleton<GameEngine>();
+            services.AddSingleton<GameTracker>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

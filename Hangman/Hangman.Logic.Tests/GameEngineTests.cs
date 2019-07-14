@@ -7,7 +7,7 @@ namespace Hangman.Logic.Tests
         [Fact]
         public void AssertIntializeNewWordSetCurrentWordPropertyAndPlayingWordProperty()
         {
-            GameEngine gameEngine = new GameEngine();
+            GameEngine gameEngine = new GameEngine(new GameTracker());
             string word = "Testing";
             string hiddenWord = new string('_', word.Length);
             gameEngine.InitializeNewWord(word);
@@ -23,7 +23,7 @@ namespace Hangman.Logic.Tests
         [InlineData("b", "blob", "b__b")]
         public void AddMattchingLettersAddOnlyOneLetterCorrectly(string letter, string word, string expectedHiddenWord)
         {
-            GameEngine gameEngine = new GameEngine();
+            GameEngine gameEngine = new GameEngine(new GameTracker());
             gameEngine.InitializeNewWord(word);
             gameEngine.AddMatchingLetters(letter);
             Assert.Equal(expectedHiddenWord, gameEngine.PlayingWord);
@@ -32,7 +32,7 @@ namespace Hangman.Logic.Tests
         [Fact]
         public void AddMattchingLettersDoNothingWithInvalidData()
         {
-            GameEngine gameEngine = new GameEngine();
+            GameEngine gameEngine = new GameEngine(new GameTracker());
             gameEngine.InitializeNewWord("test");
             gameEngine.AddMatchingLetters("");
             gameEngine.AddMatchingLetters("test");
@@ -44,7 +44,7 @@ namespace Hangman.Logic.Tests
        [Fact]
         public void AddMattchingLettersAddMoreLetterCorrectly()
         {
-            GameEngine gameEngine = new GameEngine();
+            GameEngine gameEngine = new GameEngine(new GameTracker());
             gameEngine.InitializeNewWord("documentation");
             gameEngine.AddMatchingLetters("d");
             gameEngine.AddMatchingLetters("n");
@@ -59,7 +59,7 @@ namespace Hangman.Logic.Tests
         [Fact]
         public void AddMattchingLettersFillAllWordWithValidData()
         {
-            GameEngine gameEngine = new GameEngine();
+            GameEngine gameEngine = new GameEngine(new GameTracker());
             gameEngine.InitializeNewWord("test");
             gameEngine.AddMatchingLetters("t");
             gameEngine.AddMatchingLetters("a");
