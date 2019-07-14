@@ -17,6 +17,7 @@ namespace Hangman.Client.Components
 
         protected override async Task OnInitAsync()
         {
+            this.GameEngine.Tracker.OnStateChange += this.StateHasChanged;
             await LoadNewWord();
         }
 
@@ -26,13 +27,21 @@ namespace Hangman.Client.Components
 
             if (GameEngine.Tracker.GameOver)
             {
-                this.StateHasChanged();
                 UriHelper.NavigateTo("/gameOver/" + GameEngine.CurrentWord);
                 return;
             }
 
             this.Letter = "";
             if(GameEngine.PlayingWord == GameEngine.CurrentWord)
+            {
+                await LoadNewWord();
+            }
+        }
+
+        public async Task UseJoker()
+        {
+            GameEngine.UseJoker();
+            if (GameEngine.PlayingWord == GameEngine.CurrentWord)
             {
                 await LoadNewWord();
             }
