@@ -1,9 +1,12 @@
 ﻿using Hangman.Common;
 using Hangman.Shared;
 using Hangman.Shared.InputModels.User;
+using Hangman.Shared.InputModels.WordCategory;
 using Hangman.Shared.ResponseModels;
+using Hangman.Shared.ResponseModels.WordCategory;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -30,11 +33,17 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<AuthenticatedUserResponseModel>> Login(UserLoginInputModel data) =>
            this.PostJson<AuthenticatedUserResponseModel>("user/login", data);
 
+        public Task<ApiResponse<WordCategoryResponseModel>> CreateCategory(WordCategoryCreateInputModel data) =>
+         this.PostJson<WordCategoryResponseModel>("wordCategory/create", data);
+
         public Task<ApiResponse<string>> AboutMe() =>
            this.GetJson<string>("user/me");
 
-        public Task<ApiResponse<string>> GetRandomWord(string level) =>
-          this.GetJson<string>($"word/getRandomWord?level={level}");
+        public Task<ApiResponse<string>> GetRandomWord(string level, int categoryId) =>
+          this.GetJson<string>($"word/getRandomWord?level={level}&categoryId={categoryId}");
+
+        public Task<ApiResponse<IEnumerable<WordCategoryResponseModel>>> GetAllCategories() =>
+         this.GetJson<IEnumerable<WordCategoryResponseModel>>($"wordCategory/all");
 
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
