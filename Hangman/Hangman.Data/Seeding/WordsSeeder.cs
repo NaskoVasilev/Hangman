@@ -12,27 +12,32 @@ namespace Hangman.Data.Seeding
 	{
 		public async Task Seed(IServiceProvider serviceProvider)
 		{
-			Dictionary<WordDifficulty, List<string>> words = new Dictionary<WordDifficulty, List<string>>()
-			{
-				[WordDifficulty.Easy] = new List<string>() { "claim", "habit", "football", "blazor" },
-				[WordDifficulty.Medium] = new List<string>() { "browser", "monkey", "webapi", "csharp" },
-				[WordDifficulty.Hard] = new List<string>() { "mission", "selection" },
-				[WordDifficulty.Expert] = new List<string>() { "development", "technology" }
-			};
+            var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+            if(context.Categories.Count() > 0)
+            {
+                return;
+            }
 
-			var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
-			if (!context.Words.Any())
-			{
-				foreach (var kvp in words)
-				{
-					foreach (var word in kvp.Value)
-					{
-						await context.AddAsync(new Word { Content = word, WordDifficulty = kvp.Key });
-					}
-				}
+            var words = new List<Word>()
+            {
+                new Word { Content = "blazor", WordDifficulty = WordDifficulty.Easy, CategoryId = 3 },
+                new Word { Content = "webapi", WordDifficulty = WordDifficulty.Medium, CategoryId = 3 },
+                new Word { Content = "programming", WordDifficulty = WordDifficulty.Hard, CategoryId = 3 },
+                new Word { Content = "dog", WordDifficulty = WordDifficulty.Easy, CategoryId = 1 },
+                new Word { Content = "tiger", WordDifficulty = WordDifficulty.Medium, CategoryId = 1 },
+                new Word { Content = "elephant", WordDifficulty = WordDifficulty.Hard, CategoryId = 1 },
+                new Word { Content = "football", WordDifficulty = WordDifficulty.Medium, CategoryId = 2 },
+                new Word { Content = "tennis", WordDifficulty = WordDifficulty.Easy, CategoryId = 3 },
+                new Word { Content = "basketball", WordDifficulty = WordDifficulty.Hard, CategoryId = 4 },
+                new Word { Content = "Bossaball", WordDifficulty = WordDifficulty.Hard, CategoryId = 4 }
+            };
 
-				await context.SaveChangesAsync();
-			}
+            foreach (var word in words)
+            {
+                await context.Words.AddAsync(word);
+            }
+
+            await context.SaveChangesAsync();
 		}
 	}
 }

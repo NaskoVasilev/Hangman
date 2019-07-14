@@ -15,7 +15,8 @@ namespace Hangman.WebApi.Extensions
 			{
 				new RolesSeeder(),
 				new AdminUserSeeder(),
-				new WordsSeeder()
+				new CategoriesSeeder(),
+                new WordsSeeder()
 			};
 
 			using(var scope = applicationBuilder.ApplicationServices.CreateScope())

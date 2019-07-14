@@ -15,7 +15,9 @@ namespace Hangman.Data
 
 		public DbSet<ApplicationUserRole> UserRoles { get; set; }
 
-		public DbSet<Word> Words { get; set; }
+        public DbSet<WordCategory> Categories { get; set; }
+
+        public DbSet<Word> Words { get; set; }
 
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
