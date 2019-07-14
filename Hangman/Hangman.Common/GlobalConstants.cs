@@ -8,6 +8,8 @@
 
 		public const string PlayerRole = "Player";
 
+        public const string CategoryIdentifierKey = "categoryKey";
 
-	}
+        public const string CategoryNameKey = "categoryName";
+    }
 }

@@ -5,6 +5,7 @@ using Hangman.Shared.ResponseModels.WordCategory;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Hangman.Mappings;
 
 namespace Hangman.WebApi.Controllers
 {
@@ -18,17 +19,18 @@ namespace Hangman.WebApi.Controllers
         }
 
         [Route("[action]")]
-        public async Task<ApiResponse<ActionResult>> Create(WordCategoryCreateInputModel model)
+        public async Task<ApiResponse<WordCategoryResponseModel>> Create(WordCategoryCreateInputModel model)
         {
             if (!ModelState.IsValid)
             {
-                return this.ModelStateErrors<ActionResult>();
+                return this.ModelStateErrors<WordCategoryResponseModel>();
             }
 
-            await wordCategoryService.Create(model);
-            return new ApiResponse<ActionResult>(this.Ok());
+            var wordCategory = await wordCategoryService.Create(model);
+            return new ApiResponse<WordCategoryResponseModel>(wordCategory.To<WordCategoryResponseModel>());
         }
 
+        [Route("[action]")]
         public ApiResponse<IEnumerable<WordCategoryResponseModel>> All()
         {
             IEnumerable<WordCategoryResponseModel> categories = wordCategoryService.All();

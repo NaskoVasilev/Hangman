@@ -39,8 +39,9 @@ namespace Hangman.WebApi
 
 			services.AddScoped<IWordService, WordService>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IWordCategoryService, WordCategoryService>();
 
-			var authenticationSection = Configuration.GetSection("Authentication");
+            var authenticationSection = Configuration.GetSection("Authentication");
 			services.Configure<AuthenticationSettings>(authenticationSection);
 
 			var adminDataSection = Configuration.GetSection("AdminData");

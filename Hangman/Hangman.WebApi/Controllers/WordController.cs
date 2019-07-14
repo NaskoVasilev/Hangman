@@ -16,7 +16,7 @@ namespace Hangman.WebApi.Controllers
 
         //TODO: Authoraize this action
         [HttpGet("[action]")]
-        public ActionResult<ApiResponse<string>> GetRandomWord(WordDifficulty level = WordDifficulty.Easy, int categoryId)
+        public ActionResult<ApiResponse<string>> GetRandomWord(int categoryId, WordDifficulty level = WordDifficulty.Easy)
 		{
             return new ApiResponse<string>(wordService.GetRandomWord(level, categoryId));
 		}

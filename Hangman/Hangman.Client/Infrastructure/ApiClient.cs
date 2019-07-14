@@ -39,7 +39,7 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<string>> AboutMe() =>
            this.GetJson<string>("user/me");
 
-        public Task<ApiResponse<string>> GetRandomWord(string level, int categoryId) =>
+        public Task<ApiResponse<string>> GetRandomWord(string level, string categoryId) =>
           this.GetJson<string>($"word/getRandomWord?level={level}&categoryId={categoryId}");
 
         public Task<ApiResponse<IEnumerable<WordCategoryResponseModel>>> GetAllCategories() =>

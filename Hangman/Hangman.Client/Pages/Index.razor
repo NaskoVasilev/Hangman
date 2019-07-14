@@ -38,6 +38,15 @@ else
                         <option value="4">Expert</option>
                     </select>
                 </div>
+                <div class="form-group w-25">
+                    <label>Choose category</label>
+                    <select class="form-control" @bind="@CategoryId">
+                        @foreach (var category in WordCategories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </div>
                 <button class="btn btn-dark btn-lg" @onclick="@StartGame">Start</button>
             </div>
         </div>

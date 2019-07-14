@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Hangman.Common;
 using Hangman.Logic;
 using Hangman.Models.Enums;
 using Hangman.Shared;
@@ -57,7 +58,8 @@ namespace Hangman.Client.Components
         private async Task<string> GetWordFromDatabase()
         {
             string level = await JsInterop.GetSessionStorageItem(nameof(WordDifficulty));
-            this.Response = await this.ApiClient.GetRandomWord(level);
+            string categoryId = await JsInterop.GetSessionStorageItem(GlobalConstants.CategoryIdentifierKey);
+            this.Response = await this.ApiClient.GetRandomWord(level, categoryId);
             return this.Response.Data;
         }
     }
