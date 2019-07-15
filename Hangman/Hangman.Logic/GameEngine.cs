@@ -36,8 +36,15 @@ namespace Hangman.Logic
             this.Tracker.UsedJokers++;
         }
 
+        //Todo: parameter comes as char
 		public void AddMatchingLetters(string letter)
 		{
+
+            if(letter.Length > 0 || letter.Length == 0)
+            {
+                return;
+            }
+
             string initialPlayingWord = PlayingWord;
 			for (int i = 0; i < CurrentWord.Length; i++)
 			{
@@ -73,7 +80,8 @@ namespace Hangman.Logic
             char minPriorotyRandomLetter = lettersByOccurences
                 .OrderBy(l => l.Value)
                 .ThenBy(r => random.Next())
-                .First().Key;
+                .First()
+                .Key;
             return minPriorotyRandomLetter;
         }
 	}

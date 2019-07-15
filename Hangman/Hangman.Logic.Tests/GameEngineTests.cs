@@ -10,7 +10,9 @@ namespace Hangman.Logic.Tests
             GameEngine gameEngine = new GameEngine(new GameTracker());
             string word = "Testing";
             string hiddenWord = new string('_', word.Length);
+
             gameEngine.InitializeNewWord(word);
+
             Assert.Equal(word, gameEngine.CurrentWord);
             Assert.Equal(hiddenWord, gameEngine.PlayingWord);
         }
@@ -24,7 +26,9 @@ namespace Hangman.Logic.Tests
                 UsedJokers = 1
             };
             GameEngine gameEngine = new GameEngine(tracker);
+
             gameEngine.InitializeNewWord("asdasdsa");
+
             Assert.Equal(0, tracker.Fails);
             Assert.Equal(0, tracker.UsedJokers);
         }
@@ -38,8 +42,10 @@ namespace Hangman.Logic.Tests
         public void AddMattchingLettersAddOnlyOneLetterCorrectly(string letter, string word, string expectedHiddenWord)
         {
             GameEngine gameEngine = new GameEngine(new GameTracker());
+
             gameEngine.InitializeNewWord(word);
             gameEngine.AddMatchingLetters(letter);
+
             Assert.Equal(expectedHiddenWord, gameEngine.PlayingWord);
         }
 
@@ -47,11 +53,13 @@ namespace Hangman.Logic.Tests
         public void AddMattchingLettersDoNothingWithInvalidData()
         {
             GameEngine gameEngine = new GameEngine(new GameTracker());
+
             gameEngine.InitializeNewWord("test");
             gameEngine.AddMatchingLetters("");
             gameEngine.AddMatchingLetters("test");
             gameEngine.AddMatchingLetters("es");
             gameEngine.AddMatchingLetters("sd");
+
             Assert.Equal("____", gameEngine.PlayingWord);
         }
 
@@ -74,12 +82,14 @@ namespace Hangman.Logic.Tests
         public void AddMattchingLettersFillAllWordWithValidData()
         {
             GameEngine gameEngine = new GameEngine(new GameTracker());
+
             gameEngine.InitializeNewWord("test");
             gameEngine.AddMatchingLetters("t");
             gameEngine.AddMatchingLetters("a");
             gameEngine.AddMatchingLetters("e");
             gameEngine.AddMatchingLetters("s");
             string expectedResult = "test";
+
             Assert.Equal(expectedResult, gameEngine.PlayingWord);
         }
 

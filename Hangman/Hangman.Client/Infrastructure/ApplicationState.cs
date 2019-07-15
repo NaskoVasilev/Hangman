@@ -11,6 +11,7 @@ namespace Hangman.Client.Infrastructure
         private readonly ApiClient client;
         private string username;
         private string userToken;
+        private bool isAdmin;
 
         public ApplicationState(JsInterop jsInterop, ApiClient client)
         {
@@ -46,11 +47,22 @@ namespace Hangman.Client.Infrastructure
         {
             this.Username = null;
             this.UserToken = null;
+            isAdmin = false;
         }
 
-        public async Task<bool> IsAdmin()
+        public bool IsAdmin
         {
-            this.OnUserDataChange?.Invoke();
+            get => this.isAdmin;
+            set
+            {
+                isAdmin = value;
+                this.OnUserDataChange?.Invoke();
+            }
+        }
+
+        public async Task<bool> IsInRoleAdmin()
+        {
+            //this.OnUserDataChange?.Invoke();
             var response = await client.IsAdmin();
             if (response.IsOk)
             {

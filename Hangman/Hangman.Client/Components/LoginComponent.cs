@@ -22,6 +22,8 @@ namespace Hangman.Client.Components
                 await JsInterop.SaveToken(Response.Data.UserToken);
                 ApplicationState.Username = Response.Data.Username;
                 ApplicationState.UserToken = Response.Data.UserToken;
+                bool isAdmin = await ApplicationState.IsInRoleAdmin();
+                ApplicationState.IsAdmin = isAdmin;
                 this.UriHelper.NavigateTo("/");
             }
         }
