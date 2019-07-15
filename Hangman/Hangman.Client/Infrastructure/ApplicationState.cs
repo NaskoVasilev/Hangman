@@ -50,6 +50,7 @@ namespace Hangman.Client.Infrastructure
 
         public async Task<bool> IsAdmin()
         {
+            this.OnUserDataChange?.Invoke();
             var response = await client.IsAdmin();
             if (response.IsOk)
             {

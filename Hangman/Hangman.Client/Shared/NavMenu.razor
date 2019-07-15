@@ -70,6 +70,5 @@ protected override async Task OnInitAsync()
     await State.RestoreFromLocalStorage();
     State.OnUserDataChange += this.StateHasChanged;
     isAdmin = await State.IsAdmin();
-    Console.WriteLine(isAdmin);
 }
 }
