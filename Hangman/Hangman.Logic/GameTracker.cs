@@ -38,8 +38,8 @@ namespace Hangman.Logic
 
         public void Reset()
         {
-            this.UsedJokers = 0;
-            this.Fails = 0;
+            this.usedJokers = 0;
+            this.fails = 0;
         }
     }
 }
