@@ -39,8 +39,7 @@ namespace Hangman.Logic
         //Todo: parameter comes as char
 		public void AddMatchingLetters(string letter)
 		{
-
-            if(letter.Length > 0 || letter.Length == 0)
+            if(letter.Length > 1 || letter.Length == 0)
             {
                 return;
             }

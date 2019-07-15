@@ -16,7 +16,7 @@ namespace Hangman.Client.Components
 
         public string CategoryName { get; set; }
 
-        public string Letter { get; set; } = "";
+        //public string Letter { get; set; } = "";
 
         protected override async Task OnInitAsync()
         {
@@ -27,9 +27,10 @@ namespace Hangman.Client.Components
             await LoadNewWord();
         }
 
-        public async Task Check()
+        public async Task Check(string letter)
         {
-            this.GameEngine.AddMatchingLetters(this.Letter);
+            System.Console.WriteLine(letter);
+            this.GameEngine.AddMatchingLetters(letter);
 
             if (GameEngine.Tracker.GameOver)
             {
@@ -37,7 +38,6 @@ namespace Hangman.Client.Components
                 return;
             }
 
-            this.Letter = "";
             if(GameEngine.PlayingWord == GameEngine.CurrentWord)
             {
                 await LoadNewWord();
