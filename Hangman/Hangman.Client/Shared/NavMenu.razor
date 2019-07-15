@@ -1,4 +1,5 @@
 ﻿@inject ApplicationState State
+@inject ApiClient ApiClinet
 
 <div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Hangman</a>
@@ -22,11 +23,15 @@
         </li>
         @if (State.IsLoggedIn)
         {
-            <li class="nav-item px-3">
-                <NavLink class="nav-link" href="wordCategory/create">
-                    <span class="oi oi-plus" aria-hidden="true"></span> Create Word Category
-                </NavLink>
-            </li>
+            if (isAdmin)
+            {
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" href="wordCategory/create">
+                        <span class="oi oi-plus" aria-hidden="true"></span> Create Word Category
+                    </NavLink>
+                </li>
+            }
+
             <li class="nav-item px-3">
                 <NavLink class="nav-link" href="logout">
                     <span class="oi oi-plus" aria-hidden="true"></span> Logout
@@ -50,18 +55,21 @@
 </div>
 
 @code {
-    bool collapseNavMenu = true;
+bool isAdmin = false;
+bool collapseNavMenu = true;
 
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
-    void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+void ToggleNavMenu()
+{
+    collapseNavMenu = !collapseNavMenu;
+}
 
-    protected override async Task OnInitAsync()
-    {
-        await State.RestoreFromLocalStorage();
-        State.OnUserDataChange += this.StateHasChanged;
-    }
+protected override async Task OnInitAsync()
+{
+    await State.RestoreFromLocalStorage();
+    State.OnUserDataChange += this.StateHasChanged;
+    isAdmin = await State.IsAdmin();
+    Console.WriteLine(isAdmin);
+}
 }

@@ -32,18 +32,27 @@ else
                 <div class="form-group w-25">
                     <label>Choose level</label>
                     <select class="form-control" @bind="@Level">
-                        <option value="1">Easy</option>
+                        <option selected value="1">Easy</option>
                         <option value="2">Medium</option>
                         <option value="3">Hard</option>
                         <option value="4">Expert</option>
                     </select>
                 </div>
+                @{ int index = 1; }
                 <div class="form-group w-25">
                     <label>Choose category</label>
                     <select class="form-control" @bind="@CategoryId">
                         @foreach (var category in WordCategories)
                         {
-                            <option value="@category.Id">@category.Name</option>
+                            if (index == 1)
+                            {
+                                <option selected value="@category.Id">@category.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                            index++;
                         }
                     </select>
                 </div>

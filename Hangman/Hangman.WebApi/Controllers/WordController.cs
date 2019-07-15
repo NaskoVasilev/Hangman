@@ -1,6 +1,7 @@
 ﻿using Hangman.Models.Enums;
 using Hangman.Services;
 using Hangman.Shared;
+using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hangman.WebApi.Controllers
@@ -14,7 +15,7 @@ namespace Hangman.WebApi.Controllers
 			this.wordService = wordService;
 		}
 
-        //TODO: Authoraize this action
+        [Authorization]
         [HttpGet("[action]")]
         public ActionResult<ApiResponse<string>> GetRandomWord(int categoryId, WordDifficulty level = WordDifficulty.Easy)
 		{

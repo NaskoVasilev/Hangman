@@ -15,5 +15,5 @@ namespace Hangman.Services
 		ApplicationUser GetById(string userId);
 
 		bool IsInRole(string role, string userId);
-	}
+    }
 }

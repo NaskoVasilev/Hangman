@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hangman.Mappings;
+using Hangman.WebApi.Infrastrucure.Attributes;
+using Hangman.Common;
 
 namespace Hangman.WebApi.Controllers
 {
@@ -18,6 +20,7 @@ namespace Hangman.WebApi.Controllers
             this.wordCategoryService = wordCategoryService;
         }
 
+        [Authorization(Roles = GlobalConstants.AdministratorRole)]
         [Route("[action]")]
         public async Task<ApiResponse<WordCategoryResponseModel>> Create(WordCategoryCreateInputModel model)
         {
@@ -30,6 +33,7 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<WordCategoryResponseModel>(wordCategory.To<WordCategoryResponseModel>());
         }
 
+        [Authorization]
         [Route("[action]")]
         public ApiResponse<IEnumerable<WordCategoryResponseModel>> All()
         {
@@ -37,6 +41,7 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<IEnumerable<WordCategoryResponseModel>>(categories);
         }
 
+        [Authorization]
         [Route("[action]")]
         public ApiResponse<string> GetName(int id)
         {

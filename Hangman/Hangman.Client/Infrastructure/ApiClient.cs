@@ -17,13 +17,11 @@ namespace Hangman.Client.Infrastructure
     {
         private readonly HttpClient httpClient;
 
-        private readonly ApplicationState applicationState;
         private readonly JsInterop jsInterop;
 
-        public ApiClient(HttpClient httpClient, ApplicationState applicationState, JsInterop jsInterop)
+        public ApiClient(HttpClient httpClient, JsInterop jsInterop)
         {
             this.httpClient = httpClient;
-            this.applicationState = applicationState;
             this.jsInterop = jsInterop;
         }
 
@@ -47,6 +45,9 @@ namespace Hangman.Client.Infrastructure
 
         public Task<ApiResponse<string>> GetCategoryNameById(string id) =>
         this.GetJson<string>($"wordCategory/getName?id=" + id);
+
+        public Task<ApiResponse<bool>> IsAdmin() =>
+       this.GetJson<bool>($"user/isAdmin");
 
 
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)

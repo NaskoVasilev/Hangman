@@ -58,6 +58,17 @@ namespace Hangman.WebApi.Controllers
 			return new ApiResponse<AuthenticatedUserResponseModel>(authenticatedUser);
 		}
 
+        [Route("[action]")]
+        public ApiResponse<bool> IsAdmin()
+        {
+            if(string.IsNullOrEmpty(this.userPrincipal.UserId))
+            {
+                return new ApiResponse<bool>(false);
+            }
+            bool isAdmin = userService.IsInRole(GlobalConstants.AdministratorRole, this.userPrincipal.UserId);
+            return new ApiResponse<bool>(isAdmin);
+        }
+
 		[Authorization]
 		[HttpGet("me")]
 		public ActionResult<ApiResponse<string>> GetUsername()

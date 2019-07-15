@@ -8,12 +8,14 @@ namespace Hangman.Client.Infrastructure
     public class ApplicationState
     {
         private readonly JsInterop jsInterop;
+        private readonly ApiClient client;
         private string username;
         private string userToken;
 
-        public ApplicationState(JsInterop jsInterop)
+        public ApplicationState(JsInterop jsInterop, ApiClient client)
         {
             this.jsInterop = jsInterop;
+            this.client = client;
         }
 
         public string Username
@@ -44,6 +46,16 @@ namespace Hangman.Client.Infrastructure
         {
             this.Username = null;
             this.UserToken = null;
+        }
+
+        public async Task<bool> IsAdmin()
+        {
+            var response = await client.IsAdmin();
+            if (response.IsOk)
+            {
+                return response.Data;
+            }
+            return false;
         }
 
         public async Task RestoreFromLocalStorage()

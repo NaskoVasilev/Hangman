@@ -11,6 +11,7 @@ namespace Hangman.Client.Components
         public IndexComponent()
         {
             this.WordCategories = new List<WordCategoryResponseModel>();
+            this.CategoryId = 1;
         }
 
         public IEnumerable<WordCategoryResponseModel> WordCategories { get; set; }
