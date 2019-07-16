@@ -2,19 +2,10 @@
 
 @foreach (var category in WordCategories)
 {
-    if (index == 1)
-    {
-        <option selected value="@category.Id">@category.Name</option>
-    }
-    else
-    {
-        <option value="@category.Id">@category.Name</option>
-    }
-    index++;
+    <option value="@category.Id">@category.Name</option>
 }
 
 @code {
-    int index = 1;
     public IEnumerable<WordCategoryResponseModel> WordCategories { get; set; } = new List<WordCategoryResponseModel>();
 
     protected override async Task OnInitAsync()

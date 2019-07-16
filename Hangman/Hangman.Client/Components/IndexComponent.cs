@@ -7,11 +7,6 @@ namespace Hangman.Client.Components
 {
     public class IndexComponent : BaseHangmanComponent
     {
-        public IndexComponent()
-        {
-            this.CategoryId = 1;
-        }
-
         public bool ShouldRenderCategories { get; set; }
 
         public WordDifficulty Level { get; set; } = WordDifficulty.Easy;

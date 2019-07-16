@@ -9,32 +9,10 @@
 <div class="lg-text text-dark text-center">Category: @CategoryName</div>
 <div class="playing-word text-dark text-center">@GameEngine.PlayingWord</div>
 
-
 <div class="d-flex justify-content-center flex-wrap w-75 mx-auto mt-5">
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('A'))">A</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('B'))">B</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('C'))">C</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('D'))">D</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('E'))">E</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('F'))">F</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('G'))">G</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('H'))">H</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('I'))">I</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('J'))">G</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('K'))">K</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('L'))">L</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('M'))">M</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('N'))">N</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('O'))">O</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('P'))">P</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('Q'))">Q</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('R'))">R</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('S'))">S</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('T'))">T</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('U'))">U</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('V'))">V</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('W'))">W</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('X'))">X</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('Y'))">Y</div>
-    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('Z'))">Z</div>
+    @for (char i = 'A'; i <= 'Z'; i++)
+    {
+        char currentLetter = i;
+        <div class="alphabet-letter text-dark" @onclick="@(async () => await Check(currentLetter))">@currentLetter</div>
+    }
 </div>
