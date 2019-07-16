@@ -1,5 +1,46 @@
-<h3>EditWord</h3>
+@page "/word/edit/{id}"
+@inherits EditWordComponent
 
-@code {
+<h3>Edit Word</h3>
 
-}
+<ErrorList Errors=@this.GetDataResponse?.Errors />
+<ErrorList Errors=@this.SendDataResponse?.Errors />
+
+<div class="col-sm-9 col-md-7 col-lg-5 my-3">
+    <div class="form-group">
+        <label for="username">Content</label>
+        <input type="text" id="content" class="form-control" placeholder="Content" required @bind="Model.Content" />
+    </div>
+
+    <div class="form-group">
+        <label>Choose level</label>
+        <select class="form-control" @bind="@Model.WordDifficulty">
+            @foreach (var level in WordDifficulties)
+            {
+                if (level == Model.WordDifficulty.ToString())
+                {
+                    <option selected value="@level">@level</option>
+                }
+                else
+                {
+                    <option value="@level">@level</option>
+                }
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Choose category</label>
+        <select class="form-control" @bind="@Model.CategoryId">
+            @foreach (var category in WordCategories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" @onclick="@EditHandler">Edit</button>
+    </div>
+</div>
+
+

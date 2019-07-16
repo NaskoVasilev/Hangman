@@ -9,6 +9,7 @@
             <th scope="col">Content</th>
             <th scope="col">Category</th>
             <th scope="col">Difficulty</th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,7 @@
                 <td>@word.Content</td>
                 <td>@word.CategoryName</td>
                 <td>@word.WordDifficulty</td>
+                <td><a href="word/edit/@word.Id" class="btn btn-dark">Edit</a></td>
             </tr>
         }
     </tbody>

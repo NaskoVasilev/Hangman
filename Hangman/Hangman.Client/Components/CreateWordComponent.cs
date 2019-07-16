@@ -20,8 +20,7 @@ namespace Hangman.Client.Components
             this.Response = await this.ApiClient.CreateWord(this.Model);
             if(Response.IsOk)
             {
-                //TODO: navigate to all words page
-                UriHelper.NavigateTo("/");
+                UriHelper.NavigateTo("/word/all");
             }
         }
     }
