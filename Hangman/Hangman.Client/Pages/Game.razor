@@ -8,35 +8,33 @@
 }
 <div class="lg-text text-dark text-center">Category: @CategoryName</div>
 <div class="playing-word text-dark text-center">@GameEngine.PlayingWord</div>
-@*<div class="d-flex justify-content-center mt-5">
-    <input class="form-control letter-input text-success" type="text" name="letter" @bind="@Letter" />
-    <button class="btn btn-dark ml-1 check-btn" @onclick="@Check">Check</button>
-</div>*@
 
-<div class="d-flex justify-content-center flex-wrap w-75 mx-auto">
-    @foreach (var currentLetter in letters)
-    {
-        <div class="alphabet-letter text-dark">@currentLetter</div>
-    }
+
+<div class="d-flex justify-content-center flex-wrap w-75 mx-auto mt-5">
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('a'))">A</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('b'))">B</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('c'))">C</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('d'))">D</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('e'))">E</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('f'))">F</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('g'))">G</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('h'))">H</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('i'))">I</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('j'))">G</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('k'))">K</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('l'))">L</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('m'))">M</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('n'))">N</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('o'))">O</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('p'))">P</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('q'))">Q</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('r'))">R</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('s'))">S</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('t'))">T</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('u'))">U</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('v'))">V</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('w'))">W</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('x'))">X</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('y'))">Y</div>
+    <div class="alphabet-letter text-dark" @onclick="@(async () => await Check('z'))">Z</div>
 </div>
-
-@code{
-    char[] letters = new char[] { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
-
-    public async Task InitializeInstance()
-    {
-        await jsRuntime.InvokeAsync<object>("createInstance", DotNetObjectRef.Create(this));
-    }
-
-    protected override async Task OnInitAsync()
-    {
-        await InitializeInstance();
-        await base.OnInitAsync();
-    }
-
-    [JSInvokable]
-    public async Task ReceiveLetter(string letter)
-    {
-        await Check(letter.ToLower());
-    }
-}

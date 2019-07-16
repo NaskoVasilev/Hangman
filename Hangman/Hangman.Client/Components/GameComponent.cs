@@ -27,7 +27,7 @@ namespace Hangman.Client.Components
             await LoadNewWord();
         }
 
-        public async Task Check(string letter)
+        public async Task Check(char letter)
         {
             System.Console.WriteLine(letter);
             this.GameEngine.AddMatchingLetters(letter);

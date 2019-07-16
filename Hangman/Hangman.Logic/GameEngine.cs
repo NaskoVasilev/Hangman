@@ -32,22 +32,17 @@ namespace Hangman.Logic
             }
 
             char letter = GetRandomLetterWithMinPriority();
-            AddMatchingLetters(letter.ToString());
+            AddMatchingLetters(letter);
             this.Tracker.UsedJokers++;
         }
 
         //Todo: parameter comes as char
-		public void AddMatchingLetters(string letter)
+		public void AddMatchingLetters(char letter)
 		{
-            if(letter.Length > 1 || letter.Length == 0)
-            {
-                return;
-            }
-
             string initialPlayingWord = PlayingWord;
 			for (int i = 0; i < CurrentWord.Length; i++)
 			{
-				if(CurrentWord[i].ToString() == letter)
+				if(CurrentWord[i] == letter)
 				{
 					PlayingWord = PlayingWord.Substring(0, i) + letter + PlayingWord.Substring(i + 1);
 				}
