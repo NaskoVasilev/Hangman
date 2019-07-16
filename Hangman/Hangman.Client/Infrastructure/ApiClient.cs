@@ -1,6 +1,7 @@
 ﻿using Hangman.Common;
 using Hangman.Shared;
 using Hangman.Shared.InputModels.User;
+using Hangman.Shared.InputModels.Word;
 using Hangman.Shared.InputModels.WordCategory;
 using Hangman.Shared.ResponseModels;
 using Hangman.Shared.ResponseModels.WordCategory;
@@ -25,6 +26,7 @@ namespace Hangman.Client.Infrastructure
             this.jsInterop = jsInterop;
         }
 
+        //Post requests
         public Task<ApiResponse<UserResponseModel>> Register(UserRegisterInputModel data) =>
             this.PostJson<UserResponseModel>("user/register", data);
 
@@ -34,6 +36,13 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<WordCategoryResponseModel>> CreateCategory(WordCategoryCreateInputModel data) =>
          this.PostJson<WordCategoryResponseModel>("wordCategory/create", data);
 
+        public Task<ApiResponse<bool>> CreateWord(WordCreateInputModel data) =>
+        this.PostJson<bool>("word/create", data);
+
+        public Task<ApiResponse<bool>> EditWord(WordEditInputModel data) =>
+        this.PostJson<bool>("word/edit", data);
+
+        //Get requests
         public Task<ApiResponse<string>> AboutMe() =>
            this.GetJson<string>("user/me");
 
@@ -49,6 +58,8 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<bool>> IsAdmin() =>
        this.GetJson<bool>($"user/isAdmin");
 
+        public Task<ApiResponse<WordEditResponseModel>> GetWordForEditing(int id) =>
+       this.GetJson<WordEditResponseModel>($"word/GetEditModel/" + id);
 
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
