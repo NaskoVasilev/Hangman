@@ -22,6 +22,7 @@ namespace Hangman.Services
 
         public async Task<Word> Create(WordCreateInputModel model)
         {
+            model.Content = model.Content.ToUpper();
             Word word = model.To<Word>();
             await context.Words.AddAsync(word);
             await context.SaveChangesAsync();
@@ -30,6 +31,7 @@ namespace Hangman.Services
 
         public async Task<Word> Edit(WordEditInputModel model)
         {
+            model.Content = model.Content.ToUpper();
             var word = context.Words.FirstOrDefault(x => x.Id == model.Id);
             word.CategoryId = model.CategoryId;
             word.WordDifficulty = model.WordDifficulty;

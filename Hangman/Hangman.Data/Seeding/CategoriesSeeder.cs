@@ -19,9 +19,9 @@ namespace Hangman.Data.Seeding
 
             List<string> categories = new List<string>()
             {
-                "animals",
-                "sport",
-                "technologies",
+                "Animals",
+                "Sport",
+                "Technologies",
             };
 
             foreach (var category in categories)
