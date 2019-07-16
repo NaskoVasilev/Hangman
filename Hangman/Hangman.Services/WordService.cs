@@ -1,7 +1,12 @@
 ﻿using Hangman.Data;
+using Hangman.Mappings;
+using Hangman.Models;
 using Hangman.Models.Enums;
+using Hangman.Shared.InputModels.Word;
+using Hangman.Shared.InputModels.WordCategory;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hangman.Services
 {
@@ -15,7 +20,25 @@ namespace Hangman.Services
 			this.context = context;
 		}
 
-		public string GetRandomWord(WordDifficulty wordDifficulty, int categoryId)
+        public async Task<Word> Create(WordCreateInputModel model)
+        {
+            Word word = model.To<Word>();
+            await context.Words.AddAsync(word);
+            await context.SaveChangesAsync();
+            return word;
+        }
+
+        public async Task<Word> Edit(WordEditInputModel model)
+        {
+            var word = context.Words.FirstOrDefault(x => x.Id == model.Id);
+            word.CategoryId = model.CategoryId;
+            word.WordDifficulty = model.WordDifficulty;
+            word.Content = model.Content;
+            await context.SaveChangesAsync();
+            return word;
+        }
+
+        public string GetRandomWord(WordDifficulty wordDifficulty, int categoryId)
 		{
             int wordsCount = context.Words.Count(x => x.WordDifficulty == wordDifficulty && x.CategoryId == categoryId);
 
@@ -32,5 +55,14 @@ namespace Hangman.Services
 				.Content;
 			return content;
 		}
-	}
+
+        public WordEditResponseModel GetWordWithAllCategories(int id)
+        {
+            var word = context.Words.FirstOrDefault(x => x.Id == id);
+            var wordModel = word.To<WordEditResponseModel>();
+            wordModel.WordCategories = context.Categories.To<WordCategoryViewModel>();
+            wordModel.WordDifficultes = Enum.GetNames(typeof(WordDifficulty));
+            return wordModel;
+        }
+    }
 }
