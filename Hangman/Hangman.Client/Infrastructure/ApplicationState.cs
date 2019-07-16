@@ -83,6 +83,8 @@ namespace Hangman.Client.Infrastructure
                     this.Username = user.Username;
                     this.UserToken = splittedToken[1];
                 }
+
+                this.isAdmin = await this.IsInRoleAdmin();
             }
         }
     }

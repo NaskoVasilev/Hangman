@@ -5,6 +5,7 @@ using Hangman.Models.Enums;
 using Hangman.Shared.InputModels.Word;
 using Hangman.Shared.InputModels.WordCategory;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,6 +39,15 @@ namespace Hangman.Services
             word.Content = model.Content;
             await context.SaveChangesAsync();
             return word;
+        }
+
+        public IEnumerable<WordResponseModel> GetAllOrderedByCategoryThenByDifficulty()
+        {
+            return this.context.Words.
+                OrderBy(w => w.Category.Name)
+                .ThenBy(w => w.WordDifficulty)
+                .To<WordResponseModel>()
+                .ToList();
         }
 
         public string GetRandomWord(WordDifficulty wordDifficulty, int categoryId)

@@ -1,0 +1,24 @@
+@page "/word/all"
+@inherits AllWordsComponent
+
+<h3 class="text-center mb-4">All Words</h3>
+
+<table class="table mx-auto col-md-8 table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Content</th>
+            <th scope="col">Category</th>
+            <th scope="col">Difficulty</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var word in Words)
+        {
+            <tr>
+                <td>@word.Content</td>
+                <td>@word.CategoryName</td>
+                <td>@word.WordDifficulty</td>
+            </tr>
+        }
+    </tbody>
+</table>

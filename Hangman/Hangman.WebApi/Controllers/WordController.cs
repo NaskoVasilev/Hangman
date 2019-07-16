@@ -6,6 +6,7 @@ using Hangman.Shared;
 using Hangman.Shared.InputModels.Word;
 using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Controllers
@@ -58,6 +59,14 @@ namespace Hangman.WebApi.Controllers
         {
             var model = wordService.GetWordWithAllCategories(id);
             return new ApiResponse<WordEditResponseModel>(model);
+        }
+
+        [Authorization(Roles = GlobalConstants.AdministratorRole)]
+        [HttpGet("all")]
+        public ApiResponse<IEnumerable<WordResponseModel>> All()
+        {
+            IEnumerable<WordResponseModel> models = wordService.GetAllOrderedByCategoryThenByDifficulty();
+            return new ApiResponse<IEnumerable<WordResponseModel>>(models);
         }
     }
 }

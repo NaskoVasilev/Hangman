@@ -56,10 +56,14 @@ namespace Hangman.Client.Infrastructure
         this.GetJson<string>($"wordCategory/getName?id=" + id);
 
         public Task<ApiResponse<bool>> IsAdmin() =>
-       this.GetJson<bool>($"user/isAdmin");
+        this.GetJson<bool>($"user/isAdmin");
 
         public Task<ApiResponse<WordEditResponseModel>> GetWordForEditing(int id) =>
-       this.GetJson<WordEditResponseModel>($"word/GetEditModel/" + id);
+        this.GetJson<WordEditResponseModel>($"word/GetEditModel/" + id);
+
+        public Task<ApiResponse<IEnumerable<WordResponseModel>>> GetAllWords() =>
+        this.GetJson<IEnumerable<WordResponseModel>>($"word/all");
+
 
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
