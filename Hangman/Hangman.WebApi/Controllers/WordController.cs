@@ -1,4 +1,5 @@
-﻿using Hangman.Models;
+﻿using Hangman.Common;
+using Hangman.Models;
 using Hangman.Models.Enums;
 using Hangman.Services;
 using Hangman.Shared;
@@ -25,7 +26,7 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<string>(wordService.GetRandomWord(level, categoryId));
 		}
 
-        [Authorization]
+        [Authorization(Roles = GlobalConstants.AdministratorRole)]
         [HttpPost("[action]")]
         public async Task<ApiResponse<bool>> Create(WordCreateInputModel model)
         {
@@ -38,7 +39,7 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<bool>(true);
         }
 
-        [Authorization]
+        [Authorization(Roles = GlobalConstants.AdministratorRole)]
         [HttpPost("[action]")]
         public async Task<ApiResponse<bool>> Edit(WordEditInputModel model)
         {
@@ -51,8 +52,8 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<bool>(true);
         }
 
-        [Authorization]
-        [HttpGet("[action]")]
+        [Authorization(Roles = GlobalConstants.AdministratorRole)]
+        [HttpGet("[action]/{id}")]
         public ApiResponse<WordEditResponseModel> GetEditModel(int id)
         {
             var model = wordService.GetWordWithAllCategories(id);
