@@ -1,6 +1,5 @@
 ﻿using Hangman.Common;
 using Hangman.Models.Enums;
-using Hangman.Shared.ResponseModels.WordCategory;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,11 +9,10 @@ namespace Hangman.Client.Components
     {
         public IndexComponent()
         {
-            this.WordCategories = new List<WordCategoryResponseModel>();
             this.CategoryId = 1;
         }
 
-        public IEnumerable<WordCategoryResponseModel> WordCategories { get; set; }
+        public bool ShouldRenderCategories { get; set; }
 
         public WordDifficulty Level { get; set; } = WordDifficulty.Easy;
 
@@ -29,12 +27,10 @@ namespace Hangman.Client.Components
 
         protected override async Task OnInitAsync()
         {
-            System.Console.WriteLine("waiting for categorirs");
             this.ApplicationState.OnUserDataChange += this.StateHasChanged;
-            if(JsInterop.GetToken() != null)
+            if((await JsInterop.GetToken()) != null)
             {
-                var response = await ApiClient.GetAllCategories();
-                WordCategories = response.Data;
+                ShouldRenderCategories = true;
             }
             base.OnInit();
         }
