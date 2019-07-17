@@ -6,6 +6,7 @@ namespace Hangman.Logic
     {
         private int fails;
         private int usedJokers;
+        private int totalScore;
 
         public const int MaxFails = 9;
         public const int MaxJokers = 1;
@@ -28,6 +29,16 @@ namespace Hangman.Logic
             set
             {
                 usedJokers = value;
+                OnStateChange?.Invoke();
+            }
+        }
+
+        public int TotalScore
+        {
+            get => this.totalScore;
+            set
+            {
+                totalScore = value;
                 OnStateChange?.Invoke();
             }
         }

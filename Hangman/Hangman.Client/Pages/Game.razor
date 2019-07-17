@@ -2,11 +2,23 @@
 @inherits GameComponent
 @inject IJSRuntime jsRuntime
 
-@if (this.GameEngine.Tracker.HasAvailableJokers)
-{
-    <button class="btn btn-dark joker-btn" @onclick="@UseJoker">Use Joker</button>
-}
-<div class="lg-text text-dark text-center">Category: @CategoryName</div>
+<div class="row container-fluid">
+    @if (this.GameEngine.Tracker.HasAvailableJokers)
+    {
+        <div>
+            <button class="btn btn-dark mr-auto" @onclick="@UseJoker">Use Joker</button>
+        </div>
+    }
+        <div class="game-result ml-auto">
+            <p>Score: @GameEngine.Tracker.TotalScore</p>
+            <p>Fails: @GameEngine.Tracker.Fails</p>
+        </div>
+</div>
+<div class="d-flex justify-content-around">
+    <div class="lg-text text-dark text-center font-weight-bold">Category: @CategoryName</div>
+    <div class="lg-text text-dark text-center font-weight-bold">Level: @Level</div>
+
+</div>
 <div class="playing-word text-dark text-center">@GameEngine.PlayingWord</div>
 
 <div class="d-flex justify-content-center flex-wrap w-75 mx-auto mt-5">

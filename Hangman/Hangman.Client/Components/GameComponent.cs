@@ -16,14 +16,15 @@ namespace Hangman.Client.Components
 
         public string CategoryName { get; set; }
 
-        //public string Letter { get; set; } = "";
+        public string Level { get; set; }
 
         protected override async Task OnInitAsync()
         {
             this.GameEngine.Tracker.OnStateChange += this.StateHasChanged;
             string categoryId = await JsInterop.GetSessionStorageItem(GlobalConstants.CategoryIdentifierKey);
             var response = await ApiClient.GetCategoryNameById(categoryId);
-            CategoryName = response.Data;
+            this.CategoryName = response.Data;
+            this.Level = await JsInterop.GetSessionStorageItem(nameof(WordDifficulty));
             await LoadNewWord();
         }
 
