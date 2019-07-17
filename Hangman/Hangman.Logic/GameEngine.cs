@@ -19,6 +19,7 @@ namespace Hangman.Logic
 
         public void InitializeNewWord(string word)
 		{
+            Tracker.IncreaseJokersCount();
             Tracker.Reset();
 			CurrentWord = word;
 			PlayingWord = new string('_', word.Length);
@@ -33,10 +34,9 @@ namespace Hangman.Logic
 
             char letter = GetRandomLetterWithMinPriority();
             AddMatchingLetters(letter);
-            this.Tracker.UsedJokers++;
+            this.Tracker.AvailableJokers--;
         }
 
-        //Todo: parameter comes as char
 		public void AddMatchingLetters(char letter)
 		{
             string initialPlayingWord = PlayingWord;

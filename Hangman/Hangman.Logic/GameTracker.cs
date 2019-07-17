@@ -5,11 +5,16 @@ namespace Hangman.Logic
     public class GameTracker
     {
         private int fails;
-        private int usedJokers;
+        private int availableJokers;
         private int totalScore;
 
         public const int MaxFails = 9;
-        public const int MaxJokers = 1;
+        public const int JokersCountPerWord = 1;
+
+        public GameTracker()
+        {
+            this.availableJokers = 0;
+        }
 
         public event Action OnStateChange;
 
@@ -23,14 +28,19 @@ namespace Hangman.Logic
             }
         }
 
-        public int UsedJokers
+        public int AvailableJokers
         {
-            get => this.usedJokers;
+            get => this.availableJokers;
             set
             {
-                usedJokers = value;
+                availableJokers = value;
                 OnStateChange?.Invoke();
             }
+        }
+
+        public void IncreaseJokersCount()
+        {
+            this.AvailableJokers += JokersCountPerWord;
         }
 
         public int TotalScore
@@ -45,11 +55,10 @@ namespace Hangman.Logic
 
         public bool GameOver => this.Fails >= MaxFails;
 
-        public bool HasAvailableJokers => this.UsedJokers < MaxJokers;
+        public bool HasAvailableJokers => this.AvailableJokers > 0;
 
         public void Reset()
         {
-            this.usedJokers = 0;
             this.fails = 0;
         }
     }

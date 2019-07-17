@@ -23,14 +23,14 @@ namespace Hangman.Logic.Tests
             GameTracker tracker = new GameTracker
             {
                 Fails = 4,
-                UsedJokers = 1
+                AvailableJokers = 1
             };
             GameEngine gameEngine = new GameEngine(tracker);
 
             gameEngine.InitializeNewWord("asdasdsa");
 
             Assert.Equal(0, tracker.Fails);
-            Assert.Equal(0, tracker.UsedJokers);
+            Assert.Equal(0, tracker.AvailableJokers);
         }
 
         [Theory]
@@ -120,7 +120,7 @@ namespace Hangman.Logic.Tests
             gameEngine.InitializeNewWord("tet");
             gameEngine.UseJoker();
             Assert.True(gameEngine.PlayingWord[1] == 'e');
-            Assert.True(tracker.UsedJokers == 1);
+            Assert.True(tracker.AvailableJokers == 1);
         }
 
         [Fact]
@@ -132,7 +132,7 @@ namespace Hangman.Logic.Tests
             gameEngine.UseJoker();
             Assert.True(gameEngine.PlayingWord[1] == 'e');
             Assert.True(gameEngine.PlayingWord[2] == 'e');
-            Assert.True(tracker.UsedJokers == 1);
+            Assert.True(tracker.AvailableJokers == 1);
         }
     }
 }
