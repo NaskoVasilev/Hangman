@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Hangman.Logic;
+using Hangman.Models.Enums;
 using Hangman.Shared;
+using Hangman.Shared.InputModels.GameResult;
 using Microsoft.AspNetCore.Components;
 
 namespace Hangman.Client.Components
@@ -30,20 +33,34 @@ namespace Hangman.Client.Components
 
         public async Task Check(char letter)
         {
-            System.Console.WriteLine(letter);
             this.GameEngine.AddMatchingLetters(letter);
 
             if (GameEngine.Tracker.GameOver)
             {
-                UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}");
+                await FinishGame();
                 return;
             }
 
-            if(GameEngine.PlayingWord == GameEngine.CurrentWord)
+            if (GameEngine.PlayingWord == GameEngine.CurrentWord)
             {
-                this.GameEngine.Tracker.GuessedWords++;
+                TrackResultChanges();
                 await LoadNewWord();
             }
+        }
+
+        private void TrackResultChanges()
+        {
+            this.GameEngine.Tracker.GuessedWords++;
+            int wordsScore = ScoreEstimator.CalculateWordScore(this.Level, GameEngine.Tracker.Fails);
+            this.GameEngine.Tracker.TotalScore += wordsScore;
+        }
+
+        private async Task FinishGame()
+        {
+            int bonusScore = ScoreEstimator.CalculateBonusScore(this.Level, this.GameEngine.Tracker.GuessedWords);
+            GameEngine.Tracker.TotalScore += bonusScore;
+            await SaveGameResult();
+            UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}");
         }
 
         public async Task UseJoker()
@@ -65,6 +82,19 @@ namespace Hangman.Client.Components
         {
             this.Response = await this.ApiClient.GetRandomWord(this.Level, this.CategoryId);
             return this.Response.Data;
+        }
+
+        private async Task SaveGameResult()
+        {
+            var inputModel = new GameResultInputModel
+            {
+                CategoryId = int.Parse(this.CategoryId),
+                Difficulty = (WordDifficulty)Enum.Parse(typeof(WordDifficulty), this.Level),
+                GuessedWords = this.GameEngine.Tracker.GuessedWords,
+                Score = this.GameEngine.Tracker.TotalScore
+            };
+
+            await this.ApiClient.CreateGameResult(inputModel);
         }
     }
 }
