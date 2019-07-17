@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Hangman.Common;
 using Hangman.Logic;
-using Hangman.Models.Enums;
 using Hangman.Shared;
 using Microsoft.AspNetCore.Components;
 
@@ -14,17 +12,19 @@ namespace Hangman.Client.Components
 
         public ApiResponse<string> Response { get; set; }
 
+        [Parameter]
+        public string CategoryId { get; set; }
+
         public string CategoryName { get; set; }
 
+        [Parameter]
         public string Level { get; set; }
 
         protected override async Task OnInitAsync()
         {
             this.GameEngine.Tracker.OnStateChange += this.StateHasChanged;
-            string categoryId = await JsInterop.GetSessionStorageItem(GlobalConstants.CategoryIdentifierKey);
-            var response = await ApiClient.GetCategoryNameById(categoryId);
+            var response = await ApiClient.GetCategoryNameById(this.CategoryId);
             this.CategoryName = response.Data;
-            this.Level = await JsInterop.GetSessionStorageItem(nameof(WordDifficulty));
             await LoadNewWord();
         }
 
@@ -41,6 +41,7 @@ namespace Hangman.Client.Components
 
             if(GameEngine.PlayingWord == GameEngine.CurrentWord)
             {
+                this.GameEngine.Tracker.GuessedWords++;
                 await LoadNewWord();
             }
         }
@@ -62,9 +63,7 @@ namespace Hangman.Client.Components
 
         private async Task<string> GetWordFromDatabase()
         {
-            string level = await JsInterop.GetSessionStorageItem(nameof(WordDifficulty));
-            string categoryId = await JsInterop.GetSessionStorageItem(GlobalConstants.CategoryIdentifierKey);
-            this.Response = await this.ApiClient.GetRandomWord(level, categoryId);
+            this.Response = await this.ApiClient.GetRandomWord(this.Level, this.CategoryId);
             return this.Response.Data;
         }
     }

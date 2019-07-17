@@ -53,6 +53,8 @@ namespace Hangman.Logic
             }
         }
 
+        public int GuessedWords { get; set; }
+
         public bool GameOver => this.Fails >= MaxFails;
 
         public bool HasAvailableJokers => this.AvailableJokers > 0;

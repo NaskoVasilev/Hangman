@@ -1,6 +1,4 @@
-﻿using Hangman.Common;
-using Hangman.Models.Enums;
-using System.Collections.Generic;
+﻿using Hangman.Models.Enums;
 using System.Threading.Tasks;
 
 namespace Hangman.Client.Components
@@ -13,11 +11,9 @@ namespace Hangman.Client.Components
 
         public int CategoryId { get; set; }
 
-        public async Task StartGame()
+        public void StartGame()
         {
-            await JsInterop.SetSessionStorageItem(nameof(WordDifficulty), Level.ToString());
-            await JsInterop.SetSessionStorageItem(GlobalConstants.CategoryIdentifierKey, CategoryId.ToString());
-            UriHelper.NavigateTo("/game");
+            UriHelper.NavigateTo($"/game/{this.Level.ToString()}/{this.CategoryId}");
         }
 
         protected override async Task OnInitAsync()
