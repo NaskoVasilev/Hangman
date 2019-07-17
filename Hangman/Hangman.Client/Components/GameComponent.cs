@@ -35,7 +35,7 @@ namespace Hangman.Client.Components
 
             if (GameEngine.Tracker.GameOver)
             {
-                UriHelper.NavigateTo("/gameOver/" + GameEngine.CurrentWord);
+                UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}");
                 return;
             }
 
