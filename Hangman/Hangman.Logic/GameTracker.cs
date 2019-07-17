@@ -7,7 +7,7 @@ namespace Hangman.Logic
         private int fails;
         private int usedJokers;
 
-        public const int MaxFails = 5;
+        public const int MaxFails = 9;
         public const int MaxJokers = 1;
 
         public event Action OnStateChange;

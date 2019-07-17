@@ -19,8 +19,10 @@ namespace Hangman.Data
 
         public DbSet<Word> Words { get; set; }
 
+        public DbSet<GameResult> GameResults { get; set; }
 
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.Entity<ApplicationUserRole>()
 				.HasKey(ur => new { ur.UserId, ur.RoleId });

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hangman.Models
 {
@@ -12,5 +13,7 @@ namespace Hangman.Models
 
 		[Required]
 		public string Password { get; set; }
-	}
+
+        public ICollection<GameResult> GameResults { get; set; }
+    }
 }
