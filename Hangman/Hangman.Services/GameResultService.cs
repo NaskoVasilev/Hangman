@@ -74,7 +74,8 @@ namespace Hangman.Services
                 .Select(r => new GameResultsByCategory
                 {
                     CategoryName = r.Key,
-                    TotalScore = r.Sum(x => x.Score)
+                    TotalScore = r.Sum(x => x.Score),
+                    TotalGuessedWords = r.Sum(x => x.GuessedWords)
                 })
                 .OrderByDescending(x => x.TotalScore)
                 .ToList();

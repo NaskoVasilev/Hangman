@@ -75,6 +75,14 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<IEnumerable<GameResultResponseModel>>> GetMyStatistics() =>
        this.GetJson<IEnumerable<GameResultResponseModel>>($"gameResult/MyStatictics");
 
+        public Task<ApiResponse<List<UserGameResultsResponseModel>>> GetTopPlayers() =>
+      this.GetJson<List<UserGameResultsResponseModel>>($"gameResult/GetTopPlayers");
+
+        public Task<ApiResponse<List<GameResultsByCategory>>> UserResultsByCategories() =>
+     this.GetJson<List<GameResultsByCategory>>($"gameResult/MyResultsByCategories");
+
+
+
 
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {

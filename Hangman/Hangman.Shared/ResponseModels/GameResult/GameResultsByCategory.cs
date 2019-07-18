@@ -5,5 +5,7 @@
         public string CategoryName { get; set; }
 
         public int TotalScore { get; set; }
+
+        public int TotalGuessedWords { get; set; }
     }
 }

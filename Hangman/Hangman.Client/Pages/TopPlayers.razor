@@ -1,0 +1,40 @@
+@page "/topPlayers"
+@inherits TopPlayersComponents
+
+<h3 class="text-center mb-4">Top 20 Players</h3>
+
+<table class="table mx-auto col-md-8 table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Place</th>
+            <th scope="col">User</th>
+            <th scope="col">Average Score</th>
+            <th scope="col">Guessed words</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < 20; i++)
+        {
+            var gameResult = this.Players[i];
+            <tr>
+                <td>@i</td>
+                <td>@gameResult.User</td>
+                <td>@gameResult.AverageScore</td>
+                <td>@gameResult.GuessedWords</td>
+            </tr>
+        }
+
+        @if (Players.Count > 20)
+        {
+            var gameResult = this.Players[20];
+            <tr>
+                <td class="font-weight-bold">@i</td>
+                <td class="font-weight-bold">@gameResult.User</td>
+                <td class="font-weight-bold">@gameResult.AverageScore</td>
+                <td class="font-weight-bold">@gameResult.GuessedWords</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

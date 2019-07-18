@@ -1,0 +1,29 @@
+@page "/resultsByCategories"
+@inherits ResultsByCategoriesComponent
+
+<h3 class="text-center mb-4">My Results by categories</h3>
+
+<table class="table mx-auto col-md-8 table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Category</th>
+            <th scope="col">Score</th>
+            <th scope="col">Guessed words</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < this.Results.Count; i++)
+        {
+            var gameResult = this.Results[i];
+            <tr>
+                <td>@i</td>
+                <td>@gameResult.CategoryName</td>
+                <td>@gameResult.TotalScore</td>
+                <td>@gameResult.TotalGuessedWords</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
