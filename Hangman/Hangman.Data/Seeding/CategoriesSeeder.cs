@@ -19,7 +19,7 @@ namespace Hangman.Data.Seeding
 
             List<string> categories = new List<string>()
             {
-                "Animals",
+                "Animal",
                 "Sport",
                 "Technologies",
             };

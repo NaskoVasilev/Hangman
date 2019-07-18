@@ -21,7 +21,7 @@ namespace Hangman.Data.Seeding
             var ids = context.Categories.ToDictionary(x => x.Name, y => y.Id);
             string technologiesKey = "Technologies";
             string sportKey = "Sport";
-            string animalsKey = "Animals";
+            string animalsKey = "Animal";
             var words = new List<Word>()
             {
                 new Word { Content = "blazor", WordDifficulty = WordDifficulty.Easy, CategoryId = ids[technologiesKey] },

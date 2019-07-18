@@ -85,6 +85,11 @@ namespace Hangman.Services
         {
             foreach (var content in words)
             {
+                if(this.context.Words.Any(w => w.Content.ToUpper() == content.ToUpper()))
+                {
+                    continue;
+                }
+
                 string category = categoryPredictor.PredictCategory(content);
                 var categoryFromDb = context.Categories.FirstOrDefault(x => x.Name.ToLower() == category.ToLower());
                 if(categoryFromDb == null)
@@ -96,7 +101,7 @@ namespace Hangman.Services
 
                 var word = new Word
                 {
-                    Content = content.ToLower(),
+                    Content = content.ToUpper(),
                     CategoryId = categoryFromDb.Id,
                     WordDifficulty = GetWordDiffuculty(content)
                 };

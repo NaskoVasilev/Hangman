@@ -81,11 +81,11 @@ namespace Hangman.WebApi.Controllers
         }
 
         [HttpPost("[action]")]
-        public ApiResponse<bool> Upload(byte[] data)
+        public async Task<ApiResponse<bool>> Upload(byte[] data)
         {
             string content = Encoding.UTF8.GetString(data);
             var words = content.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-            wordService.UploadWords(words);
+            await wordService.UploadWords(words);
             return new ApiResponse<bool>(true);
         }
     }

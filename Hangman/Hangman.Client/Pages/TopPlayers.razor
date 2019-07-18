@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (int i = 0; i < 20; i++)
+        @for (int i = 0; i < Math.Min(20, Players.Count); i++)
         {
             var gameResult = this.Players[i];
             <tr>
@@ -28,7 +28,7 @@
         {
             var gameResult = this.Players[20];
             <tr>
-                <td class="font-weight-bold">@i</td>
+                <td class="font-weight-bold"></td>
                 <td class="font-weight-bold">@gameResult.User</td>
                 <td class="font-weight-bold">@gameResult.AverageScore</td>
                 <td class="font-weight-bold">@gameResult.GuessedWords</td>
