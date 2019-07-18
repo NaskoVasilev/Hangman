@@ -60,7 +60,7 @@ namespace Hangman.Client.Components
             int bonusScore = ScoreEstimator.CalculateBonusScore(this.Level, this.GameEngine.Tracker.GuessedWords);
             GameEngine.Tracker.TotalScore += bonusScore;
             await SaveGameResult();
-            UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}");
+            UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}/{this.Level}/{this.CategoryId}");
         }
 
         public async Task UseJoker()

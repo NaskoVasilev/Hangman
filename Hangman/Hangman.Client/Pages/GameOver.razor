@@ -1,10 +1,10 @@
-@page "/gameOver/{CorrectWord}/{GuessedWords}"
+@page "/gameOver/{CorrectWord}/{GuessedWords}/{Level}/{CategoryId}"
 
 <div class="text-center">
     <h1 class="text-dark">Game Over</h1>
     <p class="lg-text text-info">Correct word was: <span>@CorrectWord</span></p>
     <p class="lg-text">You managed to guess <span class="font-weight-bold">@GuessedWords</span> words.</p>
-    <a href="/game" class="btn btn-dark btn-lg">Play again</a>
+    <a href="/game/@Level/@CategoryId" class="btn btn-dark btn-lg">Play again</a>
 </div>
 
 @code{
@@ -13,4 +13,10 @@
 
     [Parameter]
     public string GuessedWords { get; set; }
+
+    [Parameter]
+    public string Level { get; set; }
+
+    [Parameter]
+    public string CategoryId { get; set; }
 }

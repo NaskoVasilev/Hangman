@@ -1,5 +1,6 @@
 ﻿using Hangman.Common;
 using Hangman.Shared;
+using Hangman.Shared.InputModels.GameResult;
 using Hangman.Shared.InputModels.User;
 using Hangman.Shared.InputModels.Word;
 using Hangman.Shared.InputModels.WordCategory;
@@ -41,6 +42,9 @@ namespace Hangman.Client.Infrastructure
 
         public Task<ApiResponse<bool>> EditWord(WordEditInputModel data) =>
         this.PostJson<bool>("word/edit", data);
+
+        public Task<ApiResponse<bool>> CreateGameResult(GameResultInputModel data) =>
+        this.PostJson<bool>("gameResult/create", data);
 
         //Get requests
         public Task<ApiResponse<string>> AboutMe() =>
