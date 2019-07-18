@@ -1,0 +1,26 @@
+@page "/myResults"
+@inherits MyStatisticsComponent
+
+<h3 class="text-center mb-4">My Statistics by category and word difficulty</h3>
+
+<table class="table mx-auto col-md-8 table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Level</th>
+            <th scope="col">Total score</th>
+            <th scope="col">Total guessed words</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var gameResult in GameResults)
+        {
+            <tr>
+                <td>@gameResult.CategoryName</td>
+                <td>@gameResult.Difficulty</td>
+                <td>@gameResult.TotalScore</td>
+                <td>@gameResult.TotalGuessedWords</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,9 +1,11 @@
 ﻿using Hangman.Services;
 using Hangman.Shared;
 using Hangman.Shared.InputModels.GameResult;
+using Hangman.Shared.ResponseModels.GameResult;
 using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Controllers
@@ -26,6 +28,14 @@ namespace Hangman.WebApi.Controllers
             model.UserId = this.user.UserId;
             var result = await gameReslultService.Create(model);
             return new ApiResponse<bool>(result);
+        }
+
+        [Authorization]
+        [HttpGet("[action]")]
+        public ApiResponse<IEnumerable<GameResultResponseModel>> MyStatictics()
+        {
+            IEnumerable<GameResultResponseModel> results = gameReslultService.GetUserResultsGroupedByCategoryAndDifficulty(user.UserId);
+            return new ApiResponse<IEnumerable<GameResultResponseModel>>(results);
         }
     }
 }

@@ -5,6 +5,7 @@ using Hangman.Shared.InputModels.User;
 using Hangman.Shared.InputModels.Word;
 using Hangman.Shared.InputModels.WordCategory;
 using Hangman.Shared.ResponseModels;
+using Hangman.Shared.ResponseModels.GameResult;
 using Hangman.Shared.ResponseModels.WordCategory;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -67,6 +68,9 @@ namespace Hangman.Client.Infrastructure
 
         public Task<ApiResponse<IEnumerable<WordResponseModel>>> GetAllWords() =>
         this.GetJson<IEnumerable<WordResponseModel>>($"word/all");
+
+        public Task<ApiResponse<IEnumerable<GameResultResponseModel>>> GetMyStatistics() =>
+       this.GetJson<IEnumerable<GameResultResponseModel>>($"gameResult/MyStatictics");
 
 
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
