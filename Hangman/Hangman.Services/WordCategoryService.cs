@@ -12,10 +12,12 @@ namespace Hangman.Services
     public class WordCategoryService : IWordCategoryService
     {
         private readonly ApplicationDbContext context;
+        private readonly IUtilityService utilityService;
 
-        public WordCategoryService(ApplicationDbContext context)
+        public WordCategoryService(ApplicationDbContext context, IUtilityService utilityService)
         {
             this.context = context;
+            this.utilityService = utilityService;
         }
 
         public IEnumerable<WordCategoryResponseModel> All()
@@ -26,6 +28,7 @@ namespace Hangman.Services
         public async Task<WordCategory> Create(WordCategoryCreateInputModel model)
         {
             var wordCategory = model.To<WordCategory>();
+            wordCategory.Name = utilityService.NormalizeName(wordCategory.Name);
             await context.Categories.AddAsync(wordCategory);
             await context.SaveChangesAsync();
             return wordCategory;

@@ -15,11 +15,15 @@ namespace Hangman.Services
 	{
 		private const string NoWordsErrorMessage = "There are no words in the database.";
 		private readonly ApplicationDbContext context;
+        private readonly ICategoryPredictorService categoryPredictor;
+        private readonly IUtilityService utilityService;
 
-		public WordService(ApplicationDbContext context)
+        public WordService(ApplicationDbContext context, ICategoryPredictorService categoryPredictor, IUtilityService utilityService)
 		{
 			this.context = context;
-		}
+            this.categoryPredictor = categoryPredictor;
+            this.utilityService = utilityService;
+        }
 
         public async Task<Word> Create(WordCreateInputModel model)
         {
@@ -75,6 +79,52 @@ namespace Hangman.Services
             wordModel.WordCategories = context.Categories.To<WordCategoryViewModel>();
             wordModel.WordDifficultes = Enum.GetNames(typeof(WordDifficulty));
             return wordModel;
+        }
+
+        public async Task UploadWords(string[] words)
+        {
+            foreach (var content in words)
+            {
+                string category = categoryPredictor.PredictCategory(content);
+                var categoryFromDb = context.Categories.FirstOrDefault(x => x.Name.ToLower() == category.ToLower());
+                if(categoryFromDb == null)
+                {
+                    categoryFromDb = new WordCategory { Name = utilityService.NormalizeName(category) };
+                    await this.context.Categories.AddAsync(categoryFromDb);
+                    await this.context.SaveChangesAsync();
+                }
+
+                var word = new Word
+                {
+                    Content = content.ToLower(),
+                    CategoryId = categoryFromDb.Id,
+                    WordDifficulty = GetWordDiffuculty(content)
+                };
+
+                await context.Words.AddAsync(word);
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        private WordDifficulty GetWordDiffuculty(string word)
+        {
+            if(word.Length < 5)
+            {
+                return WordDifficulty.Easy;
+            }
+            else if(word.Length < 7)
+            {
+                return WordDifficulty.Medium;
+            }
+            else if(word.Length < 9)
+            {
+                return WordDifficulty.Hard;
+            }
+            else
+            {
+                return WordDifficulty.Expert;
+            }
         }
     }
 }

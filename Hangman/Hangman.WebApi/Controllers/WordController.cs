@@ -80,13 +80,13 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<string>(category);
         }
 
-        [HttpPost("[aciton]")]
+        [HttpPost("[action]")]
         public ApiResponse<bool> Upload(byte[] data)
         {
             string content = Encoding.UTF8.GetString(data);
             var words = content.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
-            //TODO save the words and predict category fir each of them
-            return true;
+            wordService.UploadWords(words);
+            return new ApiResponse<bool>(true);
         }
     }
 }

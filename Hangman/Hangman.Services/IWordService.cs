@@ -17,5 +17,7 @@ namespace Hangman.Services
         WordEditResponseModel GetWordWithAllCategories(int id);
 
         IEnumerable<WordResponseModel> GetAllOrderedByCategoryThenByDifficulty();
+
+        Task UploadWords(string[] words);
     }
 }
