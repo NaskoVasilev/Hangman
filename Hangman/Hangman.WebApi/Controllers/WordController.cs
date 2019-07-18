@@ -6,7 +6,9 @@ using Hangman.Shared;
 using Hangman.Shared.InputModels.Word;
 using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Controllers
@@ -14,11 +16,13 @@ namespace Hangman.WebApi.Controllers
 	public class WordController : ApiController
 	{
 		private readonly IWordService wordService;
+        private readonly ICategoryPredictorService categoryPredictor;
 
-		public WordController(IWordService wordService)
+        public WordController(IWordService wordService, ICategoryPredictorService categoryPredictor)
 		{
 			this.wordService = wordService;
-		}
+            this.categoryPredictor = categoryPredictor;
+        }
 
         [Authorization]
         [HttpGet("[action]")]
@@ -67,6 +71,22 @@ namespace Hangman.WebApi.Controllers
         {
             IEnumerable<WordResponseModel> models = wordService.GetAllOrderedByCategoryThenByDifficulty();
             return new ApiResponse<IEnumerable<WordResponseModel>>(models);
+        }
+
+        [HttpGet("[action]")]
+        public ApiResponse<string> PredictCategory(string word)
+        {
+            string category = categoryPredictor.PredictCategory(word);
+            return new ApiResponse<string>(category);
+        }
+
+        [HttpPost("[aciton]")]
+        public ApiResponse<bool> Upload(byte[] data)
+        {
+            string content = Encoding.UTF8.GetString(data);
+            var words = content.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+            //TODO save the words and predict category fir each of them
+            return true;
         }
     }
 }

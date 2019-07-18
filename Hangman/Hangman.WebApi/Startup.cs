@@ -41,6 +41,7 @@ namespace Hangman.WebApi
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IWordCategoryService, WordCategoryService>();
 			services.AddScoped<IGameReslultService, GameResultService>();
+			services.AddScoped<ICategoryPredictorService, CategoryPredictorService>();
 
             var authenticationSection = Configuration.GetSection("Authentication");
 			services.Configure<AuthenticationSettings>(authenticationSection);

@@ -41,5 +41,10 @@ namespace Hangman.Client.Infrastructure
         {
             return await jsRuntime.InvokeAsync<bool>("sessionStorageManager.remove", key);
         }
+
+        public async Task<string> GetFileData(string fileInputId)
+        {
+            return await jsRuntime.InvokeAsync<string>("fileManager.readUploadedFileAsText", fileInputId);
+        }
     }
 }

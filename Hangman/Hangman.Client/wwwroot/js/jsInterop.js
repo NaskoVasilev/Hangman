@@ -5,7 +5,7 @@ window.tokenManager = {
         window.localStorage.setItem(tokenKey, token);
         return true;
     },
-    get: function (){
+    get: function () {
         var token = window.localStorage.getItem(tokenKey);
         return token;
     },
@@ -29,3 +29,24 @@ window.sessionStorageManager = {
         return true;
     }
 };
+
+// File upload logic
+window.fileManager = {
+    readUploadedFileAsText: async function (inputFileId) {
+        let input = document.getElementById(inputFileId);
+        let file = input.files[0];
+
+        let data = await readFileContent(file);
+        return data;
+    }
+};
+
+function readFileContent(file) {
+    const reader = new FileReader();
+    return new Promise((resolve, reject) => {
+        reader.onload = event => resolve(event.target.result);
+        reader.onerror = error => reject(error);
+        reader.readAsText(file);
+    });
+};
+

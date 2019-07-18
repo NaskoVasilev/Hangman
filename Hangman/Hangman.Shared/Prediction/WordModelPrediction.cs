@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.ML.Data;
 
 namespace Hangman.Shared.Prediction
 {
     public class WordModelPrediction
     {
-        //[ColumnName("PredictedLabel")]
+        [ColumnName("PredictedLabel")]
         public string Category { get; set; }
     }
 }

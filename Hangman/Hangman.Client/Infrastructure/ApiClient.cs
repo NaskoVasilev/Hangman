@@ -47,6 +47,9 @@ namespace Hangman.Client.Infrastructure
         public Task<ApiResponse<bool>> CreateGameResult(GameResultInputModel data) =>
         this.PostJson<bool>("gameResult/create", data);
 
+        public Task<ApiResponse<bool>> UploadWordsFile(byte[] data) =>
+        this.PostJson<bool>("word/upload", data);
+
         //Get requests
         public Task<ApiResponse<string>> AboutMe() =>
            this.GetJson<string>("user/me");

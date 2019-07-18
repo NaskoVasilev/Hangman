@@ -5,7 +5,7 @@ namespace Hangman.Services
 {
     public class CategoryPredictorService : ICategoryPredictorService
     {
-        private const string ModelFile = "../../../../WordsCategoryModel.zip";
+        private const string ModelFile = "../WordsCategoryModel.zip";
 
         public string PredictCategory(string word)
         {
