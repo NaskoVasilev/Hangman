@@ -6,6 +6,7 @@ using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Infrastrucure.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hangman.WebApi.Controllers
@@ -36,6 +37,27 @@ namespace Hangman.WebApi.Controllers
         {
             IEnumerable<GameResultResponseModel> results = gameReslultService.GetUserResultsGroupedByCategoryAndDifficulty(user.UserId);
             return new ApiResponse<IEnumerable<GameResultResponseModel>>(results);
+        }
+
+        [Authorization]
+        [HttpGet("[action]")]
+        public ApiResponse<List<UserGameResultsResponseModel>> GetTopPlayers()
+        {
+            List<UserGameResultsResponseModel> results = gameReslultService.GetTop20Users();
+            if(!results.Any(x => x.User == user.Username))
+            {
+                UserGameResultsResponseModel userResults = gameReslultService.GetCurrentUserResults(user.UserId);
+                results.Add(userResults);
+            }
+            return new ApiResponse<List<UserGameResultsResponseModel>>(results);
+        }
+
+        [Authorization]
+        [HttpGet("[action]")]
+        public ApiResponse<List<GameResultsByCategory>> MyResultsByCategories()
+        {
+            List<GameResultsByCategory> results = gameReslultService.GetUserResultsByCategories(user.UserId);
+            return new ApiResponse<List<GameResultsByCategory>>(results);
         }
     }
 }
