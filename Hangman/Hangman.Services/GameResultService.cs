@@ -30,16 +30,16 @@ namespace Hangman.Services
         {
             var results = this.context.GameResults
                 .Where(r => r.UserId == userId)
-                .GroupBy(r => new { r.CategoryId, r.Difficulty })
+                .OrderBy(r => r.Category.Name)
+                .ThenBy(r => r.Difficulty)
+                .GroupBy(r => new { r.Category.Name, r.Difficulty })
                 .Select(x => new GameResultResponseModel
                 {
                     TotalScore = x.Sum(r => r.Score),
                     Difficulty = x.Key.Difficulty.ToString(),
-                    CategoryName = x.Key.CategoryId.ToString(),
+                    CategoryName = x.Key.Name,
                     TotalGuessedWords = x.Sum(r => r.GuessedWords),
                 })
-                .OrderBy(r => r.CategoryName)
-                .ThenBy(r => r.Difficulty)
                 .ToList();
 
             return results;
