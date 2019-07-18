@@ -23,14 +23,23 @@ namespace Hangman.Logic.Tests
             GameTracker tracker = new GameTracker
             {
                 Fails = 4,
-                AvailableJokers = 1
             };
             GameEngine gameEngine = new GameEngine(tracker);
 
             gameEngine.InitializeNewWord("asdasdsa");
 
             Assert.Equal(0, tracker.Fails);
-            Assert.Equal(0, tracker.AvailableJokers);
+        }
+
+        [Fact]
+        public void AssertIntializeNewWordDoNoResetTrackerAvilableJokersAndIncreaseJokersCount()
+        {
+            GameTracker tracker = new GameTracker();
+            GameEngine gameEngine = new GameEngine(tracker);
+
+            gameEngine.InitializeNewWord("asdasdsa");
+
+            Assert.Equal(GameTracker.JokersCountPerWord, tracker.AvailableJokers);
         }
 
         [Theory]
@@ -53,6 +62,7 @@ namespace Hangman.Logic.Tests
         public void AddMattchingLettersAddMoreLetterCorrectly()
         {
             GameEngine gameEngine = new GameEngine(new GameTracker());
+
             gameEngine.InitializeNewWord("documentation");
             gameEngine.AddMatchingLetters('d');
             gameEngine.AddMatchingLetters('n');
@@ -61,7 +71,22 @@ namespace Hangman.Logic.Tests
             gameEngine.AddMatchingLetters('t');
             gameEngine.AddMatchingLetters('d');
             string expectedResult = "doc___nt_t_on";
+
             Assert.Equal(expectedResult, gameEngine.PlayingWord);
+        }
+
+        [Fact]
+        public void AddMattchingLettersWithEqulCharactersIncreaseFails()
+        {
+            GameEngine gameEngine = new GameEngine(new GameTracker());
+
+            gameEngine.InitializeNewWord("test");
+            gameEngine.AddMatchingLetters('t');
+            gameEngine.AddMatchingLetters('t');
+            string expectedResult = "t__t";
+
+            Assert.Equal(expectedResult, gameEngine.PlayingWord);
+            Assert.Equal(1, gameEngine.Tracker.Fails);
         }
 
         [Fact]
@@ -84,12 +109,14 @@ namespace Hangman.Logic.Tests
         {
             GameTracker tracker = new GameTracker();
             GameEngine gameEngine = new GameEngine(tracker);
+
             gameEngine.InitializeNewWord("test");
             gameEngine.AddMatchingLetters('a');
             gameEngine.AddMatchingLetters('e');
             gameEngine.AddMatchingLetters('s');
             gameEngine.AddMatchingLetters('r');
             gameEngine.AddMatchingLetters('f');
+
             Assert.Equal(3, tracker.Fails);
         }
 
@@ -98,12 +125,14 @@ namespace Hangman.Logic.Tests
         {
             GameTracker tracker = new GameTracker();
             GameEngine gameEngine = new GameEngine(tracker);
+
             gameEngine.InitializeNewWord("tet");
             gameEngine.AddMatchingLetters('a');
             gameEngine.AddMatchingLetters('e');
             gameEngine.AddMatchingLetters('s');
             gameEngine.AddMatchingLetters('r');
             gameEngine.AddMatchingLetters('f');
+
             for (int i = 0; i < GameTracker.MaxFails - 4; i++)
             {
                 gameEngine.AddMatchingLetters('b');
@@ -117,10 +146,12 @@ namespace Hangman.Logic.Tests
         {
             GameTracker tracker = new GameTracker();
             GameEngine gameEngine = new GameEngine(tracker);
+
             gameEngine.InitializeNewWord("tet");
             gameEngine.UseJoker();
+
             Assert.True(gameEngine.PlayingWord[1] == 'e');
-            Assert.True(tracker.AvailableJokers == 1);
+            Assert.True(tracker.AvailableJokers == GameTracker.JokersCountPerWord - 1);
         }
 
         [Fact]
@@ -128,11 +159,13 @@ namespace Hangman.Logic.Tests
         {
             GameTracker tracker = new GameTracker();
             GameEngine gameEngine = new GameEngine(tracker);
+
             gameEngine.InitializeNewWord("teetttaaasssbbb");
             gameEngine.UseJoker();
+
             Assert.True(gameEngine.PlayingWord[1] == 'e');
             Assert.True(gameEngine.PlayingWord[2] == 'e');
-            Assert.True(tracker.AvailableJokers == 1);
+            Assert.True(tracker.AvailableJokers == GameTracker.JokersCountPerWord - 1);
         }
     }
 }
