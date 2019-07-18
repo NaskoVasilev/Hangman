@@ -10,6 +10,11 @@ namespace Hangman.Logic
 
         public static int CalculateWordScore(string wordLevel, int fails)
         {
+            if(fails < 0)
+            {
+                throw new ArgumentException("Fails can not be negative number.");
+            }
+
             int wordDifficulty = GetWordDifficulty(wordLevel);
             double score = DefaultWordPoints * wordDifficulty;
             if(fails > MaxFailsCountWithoutLoosingPoints)
@@ -23,16 +28,21 @@ namespace Hangman.Logic
 
         public static int CalculateBonusScore(string wordLevel, int guessedWords)
         {
+            if(guessedWords < 0)
+            {
+                throw new ArgumentException("Guessed words can not be negative number.");
+            }
+
             return GetWordDifficulty(wordLevel) * guessedWords; 
         }
 
         private static int GetWordDifficulty(string wordLevel)
         {
-            if(Enum.TryParse<WordDifficulty>(wordLevel, out WordDifficulty wordDifficulty))
+            if(Enum.TryParse<WordDifficulty>(wordLevel, ignoreCase: true, out WordDifficulty wordDifficulty))
             {
                 return (int)wordDifficulty;
             }
-            return 1;
+            throw new ArgumentException("Invalid word level.");
         }
     }
 }
