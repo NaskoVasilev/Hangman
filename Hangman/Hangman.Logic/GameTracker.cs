@@ -63,5 +63,11 @@ namespace Hangman.Logic
         {
             this.fails = 0;
         }
+
+        public void ResetScoreAndGuessedWords()
+        {
+            this.totalScore = 0;
+            this.GuessedWords = 0;
+        }
     }
 }

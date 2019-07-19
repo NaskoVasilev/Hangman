@@ -67,6 +67,7 @@ namespace Hangman.Services
         {
             var user = this.context.Users
                 .Include(x => x.GameResults)
+                .ThenInclude(x => x.Category)
                 .FirstOrDefault(x => x.Id == userId);
 
             var results = user.GameResults

@@ -48,6 +48,13 @@ namespace Hangman.Client.Components
             }
         }
 
+        public async Task FinishGame()
+        {
+            await ProcessGameResults();
+            UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}/{this.Level}/{this.CategoryId}");
+            GameEngine.Tracker.ResetScoreAndGuessedWords();
+        }
+
         private void TrackResultChanges()
         {
             this.GameEngine.Tracker.GuessedWords++;
@@ -55,12 +62,11 @@ namespace Hangman.Client.Components
             this.GameEngine.Tracker.TotalScore += wordsScore;
         }
 
-        private async Task FinishGame()
+        private async Task ProcessGameResults()
         {
             int bonusScore = ScoreEstimator.CalculateBonusScore(this.Level, this.GameEngine.Tracker.GuessedWords);
             GameEngine.Tracker.TotalScore += bonusScore;
             await SaveGameResult();
-            UriHelper.NavigateTo($"/gameOver/{GameEngine.CurrentWord}/{GameEngine.Tracker.GuessedWords}/{this.Level}/{this.CategoryId}");
         }
 
         public async Task UseJoker()
@@ -68,6 +74,7 @@ namespace Hangman.Client.Components
             GameEngine.UseJoker();
             if (GameEngine.PlayingWord == GameEngine.CurrentWord)
             {
+                TrackResultChanges();
                 await LoadNewWord();
             }
         }
