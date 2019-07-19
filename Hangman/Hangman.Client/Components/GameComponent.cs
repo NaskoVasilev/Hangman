@@ -28,6 +28,7 @@ namespace Hangman.Client.Components
             this.GameEngine.Tracker.OnStateChange += this.StateHasChanged;
             var response = await ApiClient.GetCategoryNameById(this.CategoryId);
             this.CategoryName = response.Data;
+            GameEngine.Tracker.ResetScoreAndGuessedWords();
             await LoadNewWord();
         }
 

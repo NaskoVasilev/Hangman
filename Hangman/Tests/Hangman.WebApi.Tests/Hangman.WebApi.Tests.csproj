@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hangman.WebApi\Hangman.WebApi.csproj" />
+    <ProjectReference Include="..\..\Hangman.WebApi\Hangman.WebApi.csproj" />
   </ItemGroup>
-
 </Project>

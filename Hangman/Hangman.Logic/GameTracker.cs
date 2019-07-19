@@ -68,6 +68,7 @@ namespace Hangman.Logic
         {
             this.totalScore = 0;
             this.GuessedWords = 0;
+            this.availableJokers = 0;
         }
     }
 }

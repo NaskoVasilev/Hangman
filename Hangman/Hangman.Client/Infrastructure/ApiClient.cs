@@ -82,8 +82,6 @@ namespace Hangman.Client.Infrastructure
      this.GetJson<List<GameResultsByCategory>>($"gameResult/MyResultsByCategories");
 
 
-
-
         private async Task<ApiResponse<T>> PostJson<T>(string path, object request)
         {
             string url = ConstructUrl(path);
