@@ -44,11 +44,11 @@ namespace Hangman.WebApi.Controllers
         public ApiResponse<List<UserGameResultsResponseModel>> GetTopPlayers()
         {
             List<UserGameResultsResponseModel> results = gameReslultService.GetTop20Users();
-            if(!results.Any(x => x.User == user.Username))
-            {
-                UserGameResultsResponseModel userResults = gameReslultService.GetCurrentUserResults(user.UserId);
-                results.Add(userResults);
-            }
+            //if(!results.Any(x => x.User == user.Username))
+            //{
+            //    UserGameResultsResponseModel userResults = gameReslultService.GetCurrentUserResults(user.UserId);
+            //    results.Add(userResults);
+            //}
             return new ApiResponse<List<UserGameResultsResponseModel>>(results);
         }
 
