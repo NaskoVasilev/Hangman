@@ -3,6 +3,7 @@ using Hangman.Data;
 using Hangman.Mappings;
 using Hangman.Services;
 using Hangman.Shared.InputModels.User;
+using Hangman.Shared.Prediction;
 using Hangman.Shared.ResponseModels;
 using Hangman.WebApi.Authentication;
 using Hangman.WebApi.Extensions;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.ML;
 
 namespace Hangman.WebApi
 {
@@ -31,6 +33,9 @@ namespace Hangman.WebApi
 
 			services.AddDbContext<ApplicationDbContext>(options => options
 			.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddPredictionEnginePool<WordModel, WordModelPrediction>()
+                .FromFile("MLModels/WordsCategoryModel.zip");
 
 			services.AddTransient<IHasher, Hasher>();
 			services.AddTransient<TokenProvider>();

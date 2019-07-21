@@ -80,6 +80,7 @@ namespace Hangman.WebApi.Controllers
             return new ApiResponse<string>(category);
         }
 
+        [Authorization(Roles = GlobalConstants.AdministratorRole)]
         [HttpPost("[action]")]
         public async Task<ApiResponse<bool>> Upload(byte[] data)
         {
